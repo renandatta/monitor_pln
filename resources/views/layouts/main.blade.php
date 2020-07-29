@@ -2,22 +2,24 @@
 <html lang="en" >
 <head><base href="../../">
     <meta charset="utf-8"/>
-    <title>Metronic | Empty Page</title>
-    <meta name="description" content="Page with empty content"/>
+    <title>@yield('title') {{ env('APP_NAME') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>        <!--end::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
 
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css?v=7.0.6') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.css?v=7.0.6') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/style.bundle.css?v=7.0.6') }}" rel="stylesheet" type="text/css"/>
 
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}"/>
-
+    <link rel="shortcut icon" href="{{ asset('img/logo.png') }}"/>
+    <style>
+        @media (min-width: 992px) {
+            .header .header-bottom {
+                height: 60px;
+            }
+        }
+    </style>
 </head>
-
 <body  id="kt_body"  class="header-fixed header-mobile-fixed subheader-enabled page-loading"  >
-
 
 <div id="kt_header_mobile" class="header-mobile bg-primary  header-mobile-fixed " >
     <a href="">
@@ -51,7 +53,7 @@
                     <div class=" container ">
                         <div class="d-none d-lg-flex align-items-center mr-3">
                             <a href="" class="mr-20">
-                                <img alt="Logo" src="{{ asset('assets/media/logos/logo-letter-9.png') }}" class="max-h-35px"/>
+                                <img alt="Logo" src="{{ asset('img/logo.png') }}" class="max-h-35px"/>
                             </a>
                         </div>
 
@@ -59,12 +61,10 @@
                             <div class="topbar-item">
                                 <div class="btn btn-icon btn-hover-transparent-white w-auto d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
                                     <div class="d-flex flex-column text-right pr-3">
-                                        <span class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline">Sean</span>
-                                        <span class="text-white font-weight-bolder font-size-sm d-none d-md-inline">UX Designer</span>
+                                        <span class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline">{{ Auth::user()->name }}</span>
+                                        <span class="text-white font-weight-bolder font-size-sm d-none d-md-inline">{{ Auth::user()->user_level }}</span>
                                     </div>
-                                    <span class="symbol symbol-35">
-									<span class="symbol-label font-size-h5 font-weight-bold text-white bg-white-o-30">S</span>
-								</span>
+                                    <img alt="Logo" src="{{ asset('img/user.png') }}" class="max-h-35px"/>
                                 </div>
                             </div>
                         </div>
@@ -74,22 +74,44 @@
                 <div class="header-bottom">
                     <div class="container">
                         <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
-                            <!--begin::Header Menu-->
                             <div id="kt_header_menu" class="header-menu header-menu-left header-menu-mobile header-menu-layout-default">
-                                <!--begin::Header Nav-->
                                 <ul class="menu-nav">
+                                    <li class="menu-item menu-item-submenu menu-item-rel">
+                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Home</span></a>
+                                    </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
-                                        <a href="javascript:;" class="menu-link menu-toggle"><span class="menu-text">Dashboard</span><span class="menu-desc">Recent Updates & Reports</span><i class="menu-arrow"></i></a>
+                                        <a href="javascript:void(0)" class="menu-link menu-toggle"><span class="menu-text">Master</span></a>
                                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                                             <ul class="menu-subnav">
                                                 <li class="menu-item" aria-haspopup="true">
-                                                    <a href="index.html" class="menu-link"><span class="menu-text">Latest Updated</span><span class="menu-desc"></span></a>
+                                                    <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Kontraktor</span></a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">
-                                                    <a target="_blank" href="https://preview.keenthemes.com/metronic/preview/demo9/builder.html" class="menu-link"><span class="menu-text">Layout Builder</span><span class="menu-desc"></span></a>
+                                                    <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Petugas</span></a>
+                                                </li>
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Item Kelengkapan</span></a>
+                                                </li>
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Item Progres</span></a>
+                                                </li>
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">User</span></a>
                                                 </li>
                                             </ul>
                                         </div>
+                                    </li>
+                                    <li class="menu-item menu-item-submenu menu-item-rel">
+                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Jalur</span></a>
+                                    </li>
+                                    <li class="menu-item menu-item-submenu menu-item-rel">
+                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Instalasi</span></a>
+                                    </li>
+                                    <li class="menu-item menu-item-submenu menu-item-rel">
+                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Kelengkapan</span></a>
+                                    </li>
+                                    <li class="menu-item menu-item-submenu menu-item-rel">
+                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Progres</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -98,29 +120,13 @@
                 </div>
             </div>
 
-            <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
-                <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
-                    <div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                        <div class="d-flex align-items-center flex-wrap mr-1">
-                            <div class="d-flex align-items-baseline flex-wrap mr-5">
-                                <h5 class="text-dark font-weight-bold my-1 mr-5">Empty Page</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-flex flex-column-fluid">
-                    <div class=" container ">
-                        <p>Page content goes here...</p>
-                    </div>
-                </div>
-            </div>
+            @yield('content')
 
             <div class="footer bg-white py-4 d-flex flex-lg-column " id="kt_footer">
                 <div class=" container  d-flex flex-column flex-md-row align-items-center justify-content-between">
                     <div class="text-dark order-2 order-md-1">
                         <span class="text-muted font-weight-bold mr-2">2020&copy;</span>
-                        <a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">Keenthemes</a>
+                        <a class="text-dark-75 text-hover-primary">PLN</a>
                     </div>
                 </div>
             </div>
@@ -141,18 +147,17 @@
     <div class="offcanvas-content pr-5 mr-n5">
         <div class="d-flex align-items-center mt-5">
             <div class="symbol symbol-100 mr-5">
-                <div class="symbol-label" style="background-image:url('{{ asset('assets/media/users/300_21.jpg') }}')"></div>
-                <i class="symbol-badge bg-success"></i>
+                <div class="symbol-label" style="background-image:url('{{ asset('img/user.png') }}')"></div>
             </div>
             <div class="d-flex flex-column">
                 <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
-                    James Jones
+                    {{ Auth::user()->name }}
                 </a>
                 <div class="text-muted mt-1">
-                    Application Developer
+                    {{ Auth::user()->user_level }}
                 </div>
                 <div class="navi mt-2">
-                    <a href="#" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
+                    <a href="{{ route('logout') }}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
                 </div>
             </div>
         </div>

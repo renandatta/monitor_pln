@@ -21,7 +21,5 @@ Route::get('login', 'AuthController@login')->name('login');
 Route::post('login', 'AuthController@login_process')->name('login.process');
 Route::get('logout', 'AuthController@logout')->name('logout');
 
-
-Route::get('/', function () {
-    return view('layouts.main');
-});
+Route::get('/', 'HomeController@index')->name('/');
+Route::get('home', 'HomeController@index')->name('home');

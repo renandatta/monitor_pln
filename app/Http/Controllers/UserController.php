@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    private $user;
-    public function __construct(User $user)
+    private $user, $userRepository;
+    public function __construct(User $user, UserRepository $userRepository)
     {
         $this->middleware('auth');
         $this->user = $user;
+        $this->userRepository = $userRepository;
         view()->share(['title' => 'User Program']);
     }
 
@@ -46,12 +48,8 @@ class UserController extends Controller
         else
             $request->request->remove('password');
 
-        if (!$request->has('id'))
-            $user = $this->user->create($request->all());
-        else {
-            $user = $this->user->find($request->input('id'));
-            $user->update($request->all());
-        }
+        $user = $this->userRepository->save($request);
+
         if ($request->has('ajax')) return $user;
         return redirect()->route('user')
             ->with('success', 'User berhasil disimpan');

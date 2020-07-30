@@ -29,3 +29,9 @@ Route::post('user/search', 'UserController@search')->name('user.search');
 Route::get('user/info', 'UserController@info')->name('user.info');
 Route::post('user/save', 'UserController@save')->name('user.save');
 Route::post('user/delete', 'UserController@delete')->name('user.delete');
+
+Route::get('kontraktor', 'KontraktorController@index')->name('kontraktor');
+Route::post('kontraktor/search', 'KontraktorController@search')->name('kontraktor.search');
+Route::get('kontraktor/info', 'KontraktorController@info')->name('kontraktor.info');
+Route::post('kontraktor/save', 'KontraktorController@save')->name('kontraktor.save');
+Route::post('kontraktor/delete', 'KontraktorController@delete')->name('kontraktor.delete');

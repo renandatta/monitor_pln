@@ -23,3 +23,9 @@ Route::get('logout', 'AuthController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index')->name('/');
 Route::get('home', 'HomeController@index')->name('home');
+
+Route::get('user', 'UserController@index')->name('user');
+Route::post('user/search', 'UserController@search')->name('user.search');
+Route::get('user/info', 'UserController@info')->name('user.info');
+Route::post('user/save', 'UserController@save')->name('user.save');
+Route::post('user/delete', 'UserController@delete')->name('user.delete');

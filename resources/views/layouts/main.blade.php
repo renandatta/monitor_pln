@@ -12,12 +12,9 @@
 
     <link rel="shortcut icon" href="{{ asset('img/logo.png') }}"/>
     <style>
-        @media (min-width: 992px) {
-            .header .header-bottom {
-                height: 60px;
-            }
-        }
+
     </style>
+    @stack('styles')
 </head>
 <body  id="kt_body"  class="header-fixed header-mobile-fixed subheader-enabled page-loading"  >
 
@@ -77,10 +74,16 @@
                             <div id="kt_header_menu" class="header-menu header-menu-left header-menu-mobile header-menu-layout-default">
                                 <ul class="menu-nav">
                                     <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Home</span></a>
+                                        <a href="{{ route('/') }}" class="menu-link">
+                                            <span class="menu-text">Home</span>
+                                            <span class="menu-desc">Ringkasan Informasi</span>
+                                        </a>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
-                                        <a href="javascript:void(0)" class="menu-link menu-toggle"><span class="menu-text">Master</span></a>
+                                        <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                            <span class="menu-text">Master</span>
+                                            <span class="menu-desc">Data Utama</span>
+                                        </a>
                                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                                             <ul class="menu-subnav">
                                                 <li class="menu-item" aria-haspopup="true">
@@ -96,22 +99,34 @@
                                                     <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Item Progres</span></a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">
-                                                    <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">User</span></a>
+                                                    <a href="{{ route('user') }}" class="menu-link"><span class="menu-text">User</span></a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Jalur</span></a>
+                                        <a href="{{ route('/') }}" class="menu-link">
+                                            <span class="menu-text">Jalur</span>
+                                            <span class="menu-desc">Gardu Induk</span>
+                                        </a>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Instalasi</span></a>
+                                        <a href="{{ route('/') }}" class="menu-link">
+                                            <span class="menu-text">Instalasi</span>
+                                            <span class="menu-desc">Lingkup Instalasi</span>
+                                        </a>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Kelengkapan</span></a>
+                                        <a href="{{ route('/') }}" class="menu-link">
+                                            <span class="menu-text">Kelengkapan</span>
+                                            <span class="menu-desc">Kelengkapan Instalasi</span>
+                                        </a>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Progres</span></a>
+                                        <a href="{{ route('/') }}" class="menu-link">
+                                            <span class="menu-text">Progres</span>
+                                            <span class="menu-desc">Progres Instalasi</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -233,5 +248,10 @@
 <script src="{{ asset('assets/plugins/custom/gmaps/gmaps.js?v=7.0.6') }}"></script>
 
 <script src="{{ asset('assets/js/pages/widgets.js?v=7.0.6') }}"></script>
+
+<script>
+    $('.select2').select2();
+</script>
+@stack('scripts')
 </body>
 </html>

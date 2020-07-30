@@ -16,7 +16,7 @@ class CreatePetugasTable extends Migration
         Schema::create('petugas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
+            $table->string('nama');
             $table->timestamps();
             $table->softDeletes();
 

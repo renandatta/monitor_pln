@@ -16,7 +16,7 @@ class CreateInstalasisTable extends Migration
         Schema::create('instalasi', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('jalur_id');
-            $table->string('name');
+            $table->string('nama');
             $table->string('koordinat');
             $table->string('status')->default('')->nullable();
             $table->timestamps();

@@ -90,7 +90,7 @@
                                                     <a href="{{ route('kontraktor') }}" class="menu-link"><span class="menu-text">Kontraktor</span></a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">
-                                                    <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Petugas</span></a>
+                                                    <a href="{{ route('petugas') }}" class="menu-link"><span class="menu-text">Petugas</span></a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">
                                                     <a href="{{ route('/') }}" class="menu-link"><span class="menu-text">Item Kelengkapan</span></a>

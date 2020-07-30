@@ -35,3 +35,9 @@ Route::post('kontraktor/search', 'KontraktorController@search')->name('kontrakto
 Route::get('kontraktor/info', 'KontraktorController@info')->name('kontraktor.info');
 Route::post('kontraktor/save', 'KontraktorController@save')->name('kontraktor.save');
 Route::post('kontraktor/delete', 'KontraktorController@delete')->name('kontraktor.delete');
+
+Route::get('petugas', 'PetugasController@index')->name('petugas');
+Route::post('petugas/search', 'PetugasController@search')->name('petugas.search');
+Route::get('petugas/info', 'PetugasController@info')->name('petugas.info');
+Route::post('petugas/save', 'PetugasController@save')->name('petugas.save');
+Route::post('petugas/delete', 'PetugasController@delete')->name('petugas.delete');

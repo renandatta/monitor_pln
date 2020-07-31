@@ -16,6 +16,7 @@ class CreateItemKelengkapansTable extends Migration
         Schema::create('item_kelengkapan', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parent_id')->nullable();
+            $table->string('no_urut');
             $table->string('nama');
             $table->string('jenis');
             $table->timestamps();

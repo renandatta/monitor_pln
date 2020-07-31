@@ -41,3 +41,15 @@ Route::post('petugas/search', 'PetugasController@search')->name('petugas.search'
 Route::get('petugas/info', 'PetugasController@info')->name('petugas.info');
 Route::post('petugas/save', 'PetugasController@save')->name('petugas.save');
 Route::post('petugas/delete', 'PetugasController@delete')->name('petugas.delete');
+
+Route::get('item_kelengkapan', 'ItemKelengkapanController@index')->name('item_kelengkapan');
+Route::post('item_kelengkapan/search', 'ItemKelengkapanController@search')->name('item_kelengkapan.search');
+Route::get('item_kelengkapan/info', 'ItemKelengkapanController@info')->name('item_kelengkapan.info');
+Route::post('item_kelengkapan/save', 'ItemKelengkapanController@save')->name('item_kelengkapan.save');
+Route::post('item_kelengkapan/delete', 'ItemKelengkapanController@delete')->name('item_kelengkapan.delete');
+
+Route::get('item_progres', 'ItemProgresController@index')->name('item_progres');
+Route::post('item_progres/search', 'ItemProgresController@search')->name('item_progres.search');
+Route::get('item_progres/info', 'ItemProgresController@info')->name('item_progres.info');
+Route::post('item_progres/save', 'ItemProgresController@save')->name('item_progres.save');
+Route::post('item_progres/delete', 'ItemProgresController@delete')->name('item_progres.delete');

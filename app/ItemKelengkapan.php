@@ -10,7 +10,7 @@ class ItemKelengkapan extends Model
     use SoftDeletes;
     protected $table = 'item_kelengkapan';
     protected $fillable = [
-        'parent_id', 'nama', 'jenis'
+        'parent_id', 'nama', 'jenis', 'no_urut'
     ];
 
     public function parent()
@@ -20,6 +20,7 @@ class ItemKelengkapan extends Model
 
     public function sub_items()
     {
-        return $this->hasMany(ItemKelengkapan::class, 'parent_id', 'id');
+        return $this->hasMany(ItemKelengkapan::class, 'parent_id', 'id')
+            ->orderBy('no_urut', 'asc');
     }
 }

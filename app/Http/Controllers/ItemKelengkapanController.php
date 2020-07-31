@@ -35,7 +35,8 @@ class ItemKelengkapanController extends Controller
         $itemKelengkapan = $request->has('paginate') ?
             $itemKelengkapan->paginate($request->input('paginate')) :
             $itemKelengkapan->get();
-        return view('item_kelengkapan._table', compact('itemKelengkapan'));
+        $grupSloId = $request->has('grup_slo_id') ? $request->input('grup_slo_id') : null;
+        return view('item_kelengkapan._table', compact('itemKelengkapan', 'grupSloId'));
     }
 
     public function info(Request $request)
@@ -67,7 +68,7 @@ class ItemKelengkapanController extends Controller
         $itemKelengkapan = $this->itemKelengkapan->find($request->input('id'));
         $itemKelengkapan->delete();
         if ($request->has('ajax')) return $itemKelengkapan;
-        return redirect()->route('item_kelengkapan')
+        return redirect()->route('item_kelengkapan', 'grup_slo_id=' . $itemKelengkapan->grup_slo_id)
             ->with('success', 'Item Kelengkapan berhasil dihapus');
     }
 

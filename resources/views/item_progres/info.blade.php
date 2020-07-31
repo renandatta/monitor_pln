@@ -42,6 +42,19 @@
                                 <input type="hidden" name="id" value="{{ $itemProgres->id }}">
                             @endif
                             <div class="form-group row">
+                                <label for="grup_slo_id" class="col-md-2 col-form-label">Grup SLO</label>
+                                <div class="col-md-10">
+                                    <select name="grup_slo_id" id="grup_slo_id" class="form-control select2">
+                                        @foreach ($grupSlo as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <script>
+                                        document.getElementById('grup_slo_id').value = "{{ old('name', !empty($itemProgres) ? $itemProgres->grup_slo_id : $grupSloId) }}";
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="nama" class="col-md-2 col-form-label">Nama</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" id="nama" name="nama" value="{{ old('name', !empty($itemProgres) ? $itemProgres->nama : '') }}">

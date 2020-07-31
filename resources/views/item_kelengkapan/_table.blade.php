@@ -5,6 +5,9 @@
             <th class="text-center" style="width: 5rem">No</th>
             <th>Nama</th>
             <th>Jenis</th>
+            @if($grupSloId == null)
+                <th>Grup SLO</th>
+            @endif
             <th class="text-left" style="width: 18rem;">Perintah</th>
         </tr>
         </thead>
@@ -14,6 +17,9 @@
                 <td class="text-center">{{ $value->no_urut }}</td>
                 <td>{{ $value->nama }}</td>
                 <td>{{ $value->jenis }}</td>
+                @if($grupSloId == null)
+                    <td>{{ $value->grup_slo->nama }}</td>
+                @endif
                 <td class="text-left p-1">
                     <a href="{{ route('item_kelengkapan.info', 'id=' . $value->id) }}" class="btn btn-light-success btn-sm"><i class="la la-pencil-square-o"></i> Ubah</a>
                     @if($value->jenis == '-')
@@ -29,6 +35,9 @@
                         {{ $item->nama }}
                     </td>
                     <td>{{ $item->jenis }}</td>
+                    @if($grupSloId == null)
+                        <td>{{ $value->grup_slo->nama }}</td>
+                    @endif
                     <td class="text-left p-1">
                         <a href="{{ route('item_kelengkapan.info', 'id=' . $item->id) }}" class="btn btn-light-success btn-sm"><i class="la la-pencil-square-o"></i> Ubah</a>
                     </td>

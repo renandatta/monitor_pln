@@ -4,6 +4,9 @@
         <tr>
             <th class="text-center" style="width: 5rem">No</th>
             <th>Nama</th>
+            @if($grupSloId == null)
+                <th>Grup SLO</th>
+            @endif
             <th class="text-left" style="width: 10rem;">Perintah</th>
         </tr>
         </thead>
@@ -12,6 +15,9 @@
             <tr class="datatable-row">
                 <td class="text-center">{{ $itemProgres->firstItem() + $key }}</td>
                 <td>{{ $value->nama }}</td>
+                @if($grupSloId == null)
+                    <td>{{ $value->grup_slo->nama }}</td>
+                @endif
                 <td class="text-left p-1">
                     <a href="{{ route('item_progres.info', 'id=' . $value->id) }}" class="btn btn-light-success btn-sm"><i class="la la-pencil-square-o"></i> Ubah</a>
                 </td>

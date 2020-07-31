@@ -23,6 +23,17 @@
                         <div class="card-title">
                             <form method="post" id="form_search">
                                 <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend mr-3">
+                                        <select name="grup_slo_id" id="search_grup_slo_id" class="form-control">
+                                            <option value="">Semua Grup</option>
+                                            @foreach ($grupSlo as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        <script>
+                                            document.getElementById('search_grup_slo_id').value = "{{ $grupSloId }}";
+                                        </script>
+                                    </div>
                                     <input type="text" class="form-control" id="search_name" name="search" placeholder="Pencairan" title="Search" autofocus>
                                     <div class="input-group-text">
                                         <i class="la la-search icon-lg"></i>
@@ -31,7 +42,7 @@
                             </form>
                         </div>
                         <div class="card-toolbar">
-                            <a href="{{ route('item_progres.info') }}" class="btn btn-primary font-weight-bolder">Tambah Item Progres</a>
+                            <a href="{{ route('item_progres.info') }}" class="btn btn-primary font-weight-bolder" id="button_tambah">Tambah Item Progres</a>
                         </div>
                     </div>
                     <div class="card-body" id="data_table">
@@ -47,6 +58,7 @@
         let selectedPage = 1;
         let formSearch = $("#form_search");
         let dataTable = $('#data_table');
+        let searchGrupSlo = $('#search_grup_slo_id');
         function toggleSearch() {
             formSearch.slideToggle();
         }
@@ -56,7 +68,8 @@
             $.post("{{ route('item_progres.search') }}?page=" + selectedPage, {
                 _token: "{{ csrf_token() }}",
                 paginate: 10,
-                nama: $("#search_name").val()
+                nama: $("#search_name").val(),
+                grup_slo_id: searchGrupSlo.find('option:selected').val()
             }, function (result) {
                 dataTable.html(result);
             }).fail(function (xhr) {
@@ -70,6 +83,10 @@
             selectedPage = page;
             formSearch.trigger("submit");
         }
-        searchData();
+        searchGrupSlo.change(function () {
+            searchData();
+            $('#button_tambah').attr('href', '{{ route('item_progres.info') }}?grup_slo_id=' + searchGrupSlo.find('option:selected').val() );
+        });
+        searchGrupSlo.trigger('change');
     </script>
 @endpush

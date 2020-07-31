@@ -23,4 +23,9 @@ class ItemKelengkapan extends Model
         return $this->hasMany(ItemKelengkapan::class, 'parent_id', 'id')
             ->orderBy('no_urut', 'asc');
     }
+
+    public function grup_slo()
+    {
+        return $this->belongsTo(GrupSlo::class, 'grup_slo_id', 'id');
+    }
 }

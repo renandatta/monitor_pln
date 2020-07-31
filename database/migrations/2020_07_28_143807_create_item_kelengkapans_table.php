@@ -15,6 +15,7 @@ class CreateItemKelengkapansTable extends Migration
     {
         Schema::create('item_kelengkapan', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('grup_slo_id');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('no_urut');
             $table->string('nama');
@@ -22,6 +23,7 @@ class CreateItemKelengkapansTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('grup_slo_id')->references('id')->on('grup_slo');
             $table->foreign('parent_id')->references('id')->on('item_kelengkapan');
         });
     }

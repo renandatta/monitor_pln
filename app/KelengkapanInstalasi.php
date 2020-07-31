@@ -10,7 +10,7 @@ class KelengkapanInstalasi extends Model
     use SoftDeletes;
     protected $table = 'kelengkapan_instalasi';
     protected $fillable = [
-        'instalasi_id', 'item_kelengkapan_id', 'konten', 'status'
+        'instalasi_id', 'grup_slo_id', 'kontraktor_id', 'petugas_id', 'alamat', 'koordinat'
     ];
 
     public function instalasi()
@@ -18,8 +18,18 @@ class KelengkapanInstalasi extends Model
         return $this->belongsTo(Instalasi::class, 'instalasi_id', 'id');
     }
 
-    public function item_kelengkapan()
+    public function grub_slo()
     {
-        return $this->belongsTo(ItemKelengkapan::class, 'item_kelengkapan_id', 'id');
+        return $this->belongsTo(GrupSlo::class, 'grup_slo_id', 'id');
+    }
+
+    public function kontraktor()
+    {
+        return $this->belongsTo(Kontraktor::class, 'kontraktor_id', 'id');
+    }
+
+    public function petugas()
+    {
+        return $this->belongsTo(Petugas::class, 'petugas_id', 'id');
     }
 }

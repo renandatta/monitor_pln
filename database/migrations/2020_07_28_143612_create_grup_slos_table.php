@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemProgresTable extends Migration
+class CreateGrupSlosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateItemProgresTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_progres', function (Blueprint $table) {
+        Schema::create('grup_slo', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('grup_slo_id');
             $table->string('nama');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('grup_slo_id')->references('id')->on('grup_slo');
         });
     }
 
@@ -31,6 +28,6 @@ class CreateItemProgresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_progres');
+        Schema::dropIfExists('grup_slo');
     }
 }

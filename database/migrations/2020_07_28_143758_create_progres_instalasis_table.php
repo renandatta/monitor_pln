@@ -13,16 +13,17 @@ class CreateProgresInstalasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('progres_instalasis', function (Blueprint $table) {
+        Schema::create('progres_instalasi', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('instalasi_id');
-            $table->unsignedBigInteger('item_progres_id');
-            $table->decimal('progres', 5, 2)->default(0);
+            $table->unsignedBigInteger('grup_slo_id');
+            $table->decimal('progres_jalur', 5, 2)->default(0);
+            $table->decimal('progres_bay', 5, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('instalasi_id')->references('id')->on('instalasi');
-            $table->foreign('item_progres_id')->references('id')->on('item_progres');
+            $table->foreign('grup_slo_id')->references('id')->on('grup_slo');
         });
     }
 
@@ -33,6 +34,6 @@ class CreateProgresInstalasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('progres_instalasis');
+        Schema::dropIfExists('progres_instalasi');
     }
 }

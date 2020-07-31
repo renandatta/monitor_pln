@@ -93,6 +93,9 @@
                                                     <a href="{{ route('petugas') }}" class="menu-link"><span class="menu-text">Petugas</span></a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{ route('grup_slo') }}" class="menu-link"><span class="menu-text">Grup SLO</span></a>
+                                                </li>
+                                                <li class="menu-item" aria-haspopup="true">
                                                     <a href="{{ route('item_kelengkapan') }}" class="menu-link"><span class="menu-text">Item Kelengkapan</span></a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">

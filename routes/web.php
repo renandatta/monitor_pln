@@ -42,6 +42,12 @@ Route::get('petugas/info', 'PetugasController@info')->name('petugas.info');
 Route::post('petugas/save', 'PetugasController@save')->name('petugas.save');
 Route::post('petugas/delete', 'PetugasController@delete')->name('petugas.delete');
 
+Route::get('grup_slo', 'GrupSloController@index')->name('grup_slo');
+Route::post('grup_slo/search', 'GrupSloController@search')->name('grup_slo.search');
+Route::get('grup_slo/info', 'GrupSloController@info')->name('grup_slo.info');
+Route::post('grup_slo/save', 'GrupSloController@save')->name('grup_slo.save');
+Route::post('grup_slo/delete', 'GrupSloController@delete')->name('grup_slo.delete');
+
 Route::get('item_kelengkapan', 'ItemKelengkapanController@index')->name('item_kelengkapan');
 Route::post('item_kelengkapan/search', 'ItemKelengkapanController@search')->name('item_kelengkapan.search');
 Route::get('item_kelengkapan/info', 'ItemKelengkapanController@info')->name('item_kelengkapan.info');

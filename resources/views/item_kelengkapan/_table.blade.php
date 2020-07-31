@@ -17,7 +17,7 @@
                 <td class="text-left p-1">
                     <a href="{{ route('item_kelengkapan.info', 'id=' . $value->id) }}" class="btn btn-light-success btn-sm"><i class="la la-pencil-square-o"></i> Ubah</a>
                     @if($value->jenis == '-')
-                        <a href="{{ route('item_kelengkapan.info', 'parent_id=' . $value->id) }}" class="btn btn-light-success btn-sm ml-3"><i class="la la-plus"></i> Tambah Sub</a>
+                        <a href="{{ route('item_kelengkapan.info', ['parent_id=' . $value->id, 'grup_slo_id=' . $value->grup_slo_id]) }}" class="btn btn-light-success btn-sm ml-3"><i class="la la-plus"></i> Tambah Sub</a>
                     @endif
                 </td>
             </tr>

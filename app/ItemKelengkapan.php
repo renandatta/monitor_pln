@@ -10,7 +10,7 @@ class ItemKelengkapan extends Model
     use SoftDeletes;
     protected $table = 'item_kelengkapan';
     protected $fillable = [
-        'parent_id', 'nama', 'jenis', 'no_urut'
+        'parent_id', 'nama', 'jenis', 'no_urut', 'grup_slo_id'
     ];
 
     public function parent()

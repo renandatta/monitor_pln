@@ -1,4 +1,4 @@
-@php($addTitle = !empty($itemProgres) ? 'Ubah ' : 'Tambah ')
+@php($addTitle = !empty($grup_slo) ? 'Ubah ' : 'Tambah ')
 
 @extends('layouts.main')
 
@@ -21,36 +21,36 @@
         <div class="d-flex flex-column-fluid">
             <div class=" container ">
                 <div class="card card-custom">
-                    @if(!empty($itemProgres))
+                    @if(!empty($grupSlo))
                     <div class="card-header flex-wrap ">
                         <div class="card-title">
 
                         </div>
                         <div class="card-toolbar">
-                            <form action="{{ route('item_progres.delete') }}" method="post">
+                            <form action="{{ route('grup_slo.delete') }}" method="post">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $itemProgres->id }}">
-                                <button type="submit" class="btn btn-danger"><i class="la la-times"></i> Hapus Item Progres</button>
+                                <input type="hidden" name="id" value="{{ $grupSlo->id }}">
+                                <button type="submit" class="btn btn-danger"><i class="la la-times"></i> Hapus Grup Slo</button>
                             </form>
                         </div>
                     </div>
                     @endif
                     <div class="card-body">
-                        <form action="{{ route('item_progres.save') }}" method="post">
+                        <form action="{{ route('grup_slo.save') }}" method="post">
                             @csrf
-                            @if(!empty($itemProgres))
-                                <input type="hidden" name="id" value="{{ $itemProgres->id }}">
+                            @if(!empty($grupSlo))
+                                <input type="hidden" name="id" value="{{ $grupSlo->id }}">
                             @endif
                             <div class="form-group row">
                                 <label for="nama" class="col-md-2 col-form-label">Nama</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" id="nama" name="nama" value="{{ old('name', !empty($itemProgres) ? $itemProgres->nama : '') }}">
+                                    <input class="form-control" type="text" id="nama" name="nama" value="{{ old('name', !empty($grupSlo) ? $grupSlo->nama : '') }}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-10 ml-md-auto">
-                                    <button type="submit" class="btn btn-primary mr-3">Simpan Item Progres</button>
-                                    <a href="{{ route('item_progres') }}" class="btn btn-secondary">Batal & Kembali</a>
+                                    <button type="submit" class="btn btn-primary mr-3">Simpan Grup Slo</button>
+                                    <a href="{{ route('grup_slo') }}" class="btn btn-secondary">Batal & Kembali</a>
                                 </div>
                             </div>
                         </form>

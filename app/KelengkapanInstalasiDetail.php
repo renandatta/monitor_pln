@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class KelengkapanInstalasiDetail extends Model
 {
     use SoftDeletes;
+    protected $table = 'kelengkapan_instalasi_detail';
     protected $fillable = [
         'kelengkapan_instalasi_id', 'item_kelengkapan_id', 'status', 'konten'
     ];

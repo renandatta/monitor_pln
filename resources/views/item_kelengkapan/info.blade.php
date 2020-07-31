@@ -40,7 +40,6 @@
                             @csrf
                             @if(!empty($itemKelengkapan))
                                 <input type="hidden" name="id" value="{{ $itemKelengkapan->id }}">
-                                <input type="hidden" name="user_id" value="{{ $itemKelengkapan->user_id }}">
                             @endif
                             @if($parent != null)
                                 <input type="hidden" name="parent_id" value="{{ $parent->id }}">
@@ -52,9 +51,22 @@
                                 </div>
                             @endif
                             <div class="form-group row">
+                                <label for="grup_slo_id" class="col-md-2 col-form-label">Grup SLO</label>
+                                <div class="col-md-10">
+                                    <select name="grup_slo_id" id="grup_slo_id" class="form-control select2">
+                                        @foreach ($grupSlo as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <script>
+                                        document.getElementById('grup_slo_id').value = "{{ old('name', !empty($itemKelengkapan) ? $itemKelengkapan->grup_slo_id : $grupSloId) }}";
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="no_urut" class="col-md-2 col-form-label">Nomor Urut</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" id="no_urut" name="no_urut" value="{{ old('name', !empty($itemKelengkapan) ? $itemKelengkapan->no_urut : '') }}">
+                                    <input class="form-control" type="text" id="no_urut" name="no_urut" value="{{ old('name', !empty($itemKelengkapan) ? $itemKelengkapan->no_urut : $lastNumber) }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -71,6 +83,9 @@
                                         <option>Gambar</option>
                                         <option>Teks</option>
                                     </select>
+                                    <script>
+                                        document.getElementById('jenis').value = "{{ old('name', !empty($itemKelengkapan) ? $itemKelengkapan->jenis : '-') }}";
+                                    </script>
                                 </div>
                             </div>
                             <div class="row">

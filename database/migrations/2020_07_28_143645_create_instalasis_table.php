@@ -22,7 +22,7 @@ class CreateInstalasisTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('jalur_id')->references('id')->on('instalasi');
+            $table->foreign('jalur_id')->references('id')->on('jalur');
         });
     }
 

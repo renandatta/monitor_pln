@@ -108,13 +108,13 @@
                                         </div>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('/') }}" class="menu-link">
+                                        <a href="{{ route('jalur') }}" class="menu-link">
                                             <span class="menu-text">Jalur</span>
                                             <span class="menu-desc">Gardu Induk</span>
                                         </a>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('/') }}" class="menu-link">
+                                        <a href="{{ route('instalasi') }}" class="menu-link">
                                             <span class="menu-text">Instalasi</span>
                                             <span class="menu-desc">Lingkup Instalasi</span>
                                         </a>
@@ -254,6 +254,7 @@
 
 <script>
     $('.select2').select2();
+    $('.kt-selectpicker').selectpicker();
 </script>
 @stack('scripts')
 </body>

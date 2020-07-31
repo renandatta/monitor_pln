@@ -59,3 +59,15 @@ Route::post('item_progres/search', 'ItemProgresController@search')->name('item_p
 Route::get('item_progres/info', 'ItemProgresController@info')->name('item_progres.info');
 Route::post('item_progres/save', 'ItemProgresController@save')->name('item_progres.save');
 Route::post('item_progres/delete', 'ItemProgresController@delete')->name('item_progres.delete');
+
+Route::get('jalur', 'JalurController@index')->name('jalur');
+Route::post('jalur/search', 'JalurController@search')->name('jalur.search');
+Route::get('jalur/info', 'JalurController@info')->name('jalur.info');
+Route::post('jalur/save', 'JalurController@save')->name('jalur.save');
+Route::post('jalur/delete', 'JalurController@delete')->name('jalur.delete');
+
+Route::get('instalasi', 'InstalasiController@index')->name('instalasi');
+Route::post('instalasi/search', 'InstalasiController@search')->name('instalasi.search');
+Route::get('instalasi/info', 'InstalasiController@info')->name('instalasi.info');
+Route::post('instalasi/save', 'InstalasiController@save')->name('instalasi.save');
+Route::post('instalasi/delete', 'InstalasiController@delete')->name('instalasi.delete');

@@ -16,7 +16,7 @@ class CreateJalursTable extends Migration
         Schema::create('jalur', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

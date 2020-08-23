@@ -28,6 +28,9 @@
                                             <option value="">Semua Grup</option>
                                             @foreach ($grupSlo as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                @foreach ($item->sub_items as $subItem)
+                                                    <option value="{{ $subItem->id }}">{{ $item->nama . ' - ' . $subItem->nama }}</option>
+                                                @endforeach
                                             @endforeach
                                         </select>
                                         <script>

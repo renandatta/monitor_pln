@@ -54,8 +54,12 @@
                                 <label for="grup_slo_id" class="col-md-2 col-form-label">Grup SLO</label>
                                 <div class="col-md-10">
                                     <select name="grup_slo_id" id="grup_slo_id" class="form-control select2">
+                                        <option value="" selected disabled>- Pilih -</option>
                                         @foreach ($grupSlo as $item)
                                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            @foreach ($item->sub_items as $subItem)
+                                                <option value="{{ $subItem->id }}">{{ $item->nama . ' - ' . $subItem->nama }}</option>
+                                            @endforeach
                                         @endforeach
                                     </select>
                                     <script>

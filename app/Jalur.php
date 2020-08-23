@@ -10,6 +10,6 @@ class Jalur extends Model
     use SoftDeletes;
     protected $table = 'jalur';
     protected $fillable = [
-        'nama'
+        'nama', 'koordinat', 'alamat'
     ];
 }

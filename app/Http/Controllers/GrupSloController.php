@@ -24,7 +24,7 @@ class GrupSloController extends Controller
 
     public function search(Request $request)
     {
-        $grupSlo = $this->grupSlo;
+        $grupSlo = $this->grupSlo->whereNull('parent_id');
         if ($request->has('nama') && $request->input('nama') != '')
             $grupSlo = $grupSlo->where('nama', 'like', '%'. $request->input('nama') .'%');
         if ($request->has('ajax')) return $grupSlo->get();
@@ -37,7 +37,9 @@ class GrupSloController extends Controller
     public function info(Request $request)
     {
         $grupSlo = $request->has('id') ? $this->grupSlo->find($request->input('id')) : [];
-        return view('grup_slo.info', compact('grupSlo'));
+        $parent = $request->has('parent_id') ? $this->grupSlo->find($request->input('parent_id')) : null;
+        $lastNumber = $this->getLastNumber($request->has('parent_id') ? $parent->id : null);
+        return view('grup_slo.info', compact('grupSlo', 'lastNumber', 'parent'));
     }
 
     public function save(Request $request)
@@ -61,5 +63,15 @@ class GrupSloController extends Controller
         if ($request->has('ajax')) return $grupSlo;
         return redirect()->route('grup_slo')
             ->with('success', 'Grup Slo berhasil dihapus');
+    }
+
+    public function getLastNumber($parentId = null)
+    {
+        $last = $this->grupSlo->orderBy('no_urut', 'desc');
+        $last = ($parentId == null) ? $last->whereNull('parent_id') : $last->where('parent_id', '=', $parentId);
+        $last = $last->first();
+
+        $nomor = (!empty($last)) ? $last->no_urut : 0;
+        return intval($nomor) + 1;
     }
 }

@@ -14,6 +14,6 @@ class GrupSloRepository
 
     public function get_slo()
     {
-        return $this->grupSlo->get();
+        return $this->grupSlo->whereNull('parent_id')->get();
     }
 }

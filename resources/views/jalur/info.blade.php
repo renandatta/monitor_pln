@@ -47,6 +47,18 @@
                                     <input class="form-control" type="text" id="nama" name="nama" value="{{ old('name', !empty($jalur) ? $jalur->nama : '') }}">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="koordinat" class="col-md-2 col-form-label">Koordinat</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="koordinat" name="koordinat" value="{{ old('koordinat', !empty($jalur) ? $jalur->koordinat : '') }}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="alamat" class="col-md-2 col-form-label">Alamat</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" id="alamat" name="alamat" value="{{ old('name', !empty($jalur) ? $jalur->alamat : '') }}">
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-10 ml-md-auto">
                                     <button type="submit" class="btn btn-primary mr-3">Simpan Jalur</button>

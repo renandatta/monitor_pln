@@ -23,9 +23,6 @@
                 <div class="card card-custom">
                     @if(!empty($grupSlo))
                     <div class="card-header flex-wrap ">
-                        <div class="card-title">
-
-                        </div>
                         <div class="card-toolbar">
                             <form action="{{ route('grup_slo.delete') }}" method="post">
                                 @csrf
@@ -40,6 +37,16 @@
                             @csrf
                             @if(!empty($grupSlo))
                                 <input type="hidden" name="id" value="{{ $grupSlo->id }}">
+                            @endif
+                            <input type="hidden" name="no_urut" value="{{ $lastNumber }}">
+                            @if($parent != null)
+                                <input type="hidden" name="parent_id" value="{{ $parent->id }}">
+                                <div class="form-group row">
+                                    <label for="parent_grup_slo" class="col-md-2 col-form-label">Parent Grup SLO</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="parent_grup_slo" name="parent_grup_slo" value="{{ $parent->nama }}" readonly>
+                                    </div>
+                                </div>
                             @endif
                             <div class="form-group row">
                                 <label for="nama" class="col-md-2 col-form-label">Nama</label>

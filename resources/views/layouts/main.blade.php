@@ -126,7 +126,7 @@
                                         </a>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('/') }}" class="menu-link">
+                                        <a href="{{ route('progres_instalasi') }}" class="menu-link">
                                             <span class="menu-text">Progres</span>
                                             <span class="menu-desc">Progres Instalasi</span>
                                         </a>

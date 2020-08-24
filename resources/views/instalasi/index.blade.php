@@ -6,13 +6,13 @@
 
 @push('styles')
     <style>
-        .bs-searchbox .form-control {
-            border: 1px solid #c1c1c1 !important;
-        }
-        .bootstrap-select > .dropdown-toggle.btn-light, .bootstrap-select > .dropdown-toggle.btn-secondary {
-            background-color: transparent!important;
-            border-color: transparent;
-        }
+        /*.bs-searchbox .form-control {*/
+        /*    border: 1px solid #c1c1c1 !important;*/
+        /*}*/
+        /*.bootstrap-select > .dropdown-toggle.btn-light, .bootstrap-select > .dropdown-toggle.btn-secondary {*/
+        /*    background-color: transparent!important;*/
+        /*    border-color: transparent;*/
+        /*}*/
     </style>
 @endpush
 
@@ -25,24 +25,54 @@
                         <h5 class="text-dark font-weight-bold my-1 mr-5">{{ $title }}</h5>
                     </div>
                 </div>
+                <div class="d-flex align-items-center">
+                    <a href="{{ route('instalasi.info') }}" class="btn btn-primary font-weight-bold btn-sm px-4 font-size-base ml-2"><i class="la la-plus"></i> Instalasi Baru</a>
+                    <button type="button" onclick="toggleSearch()" class="btn btn-secondary font-weight-bold btn-sm px-4 font-size-base ml-2">Filter Pencarian <i class="la la-filter"></i></button>
+                </div>
             </div>
         </div>
 
         <div class="d-flex flex-column-fluid">
             <div class=" container ">
-                <div class="card card-custom">
-                    <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                        <div class="card-title">
-                            <form method="post" id="form_search">
-                                <div class="input-group input-group-solid">
-                                    <div class="input-group-prepend">
+                <div class="card card-custom mb-5" id="card_search" style="display: none;">
+                    <div class="card-body">
+                        <form method="post" id="form_search">
+                            <h3 class="mb-4"># Filter Pencarian</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="search_name">Nama Instalasi</label>
+                                        <input type="text" class="form-control" id="search_name" name="search" placeholder="Pencairan" title="Search" autofocus>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="search_jalur_id">Jalur</label>
                                         <select name="jalur_id" id="search_jalur_id" class="form-control kt-selectpicker mr-4" data-live-search="true">
+                                            <option value="">Semua Jalur</option>
                                             @foreach($jalur as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <input type="text" class="form-control" id="search_name" name="search" placeholder="Pencairan" title="Search" autofocus>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info"><i class="la la-search"></i> Cari Instalasi</button>
+                            <button type="button" class="btn btn-light">Reset</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card card-custom">
+                    <div class="card-header flex-wrap border-0 pt-6 pb-0" style="display: none;">
+                        <div class="card-title">
+
+                                <div class="input-group input-group-solid">
+                                    <div class="input-group-prepend">
+
+                                    </div>
+
                                     <div class="input-group-text">
                                         <i class="la la-search icon-lg"></i>
                                     </div>
@@ -68,7 +98,7 @@
         let dataTable = $('#data_table');
         let searchJalur = $('#search_jalur_id');
         function toggleSearch() {
-            formSearch.slideToggle();
+            $('#card_search').slideToggle();
         }
         formSearch.submit(function (e) {
             e.preventDefault();
@@ -91,9 +121,6 @@
             selectedPage = page;
             formSearch.trigger("submit");
         }
-        searchJalur.change(function () {
-            searchData();
-        });
-        searchJalur.trigger('change');
+        searchData();
     </script>
 @endpush

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ProgresInstalasiDetail extends Model
 {
     use SoftDeletes;
-    protected $table = 'progres_isntalasi_detail';
+    protected $table = 'progres_instalasi_details';
     protected $fillable = [
         'progres_instalasi_id', 'item_progres_id', 'progres'
     ];

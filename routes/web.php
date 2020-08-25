@@ -82,4 +82,5 @@ Route::get('progres_instalasi', 'ProgresInstalasiController@index')->name('progr
 Route::post('progres_instalasi/search', 'ProgresInstalasiController@search')->name('progres_instalasi.search');
 Route::get('progres_instalasi/info', 'ProgresInstalasiController@info')->name('progres_instalasi.info');
 Route::post('progres_instalasi/save', 'ProgresInstalasiController@save')->name('progres_instalasi.save');
-Route::post('progres_instalasi/delete', 'ProgresInstalasiController@delete')->name('progres_instalasi.delete');
+Route::post('progres_instalasi/detail/save', 'ProgresInstalasiController@detail_save')->name('progres_instalasi.detail.save');
+//Route::post('progres_instalasi/delete', 'ProgresInstalasiController@delete')->name('progres_instalasi.delete');

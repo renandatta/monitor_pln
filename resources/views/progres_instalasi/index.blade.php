@@ -4,6 +4,16 @@
     {{ $title }} -
 @endsection
 
+@push('styles')
+    <style>
+        .select-td {
+            background-color: transparent;
+            border-radius: 0;
+            border: 0;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
@@ -80,5 +90,27 @@
             });
         });
         formSearch.trigger("submit");
+
+        function changeStatusInstalasi(id) {
+            let status = $('#status_instalasi_' + id).find('option:selected').val();
+            $.post("{{ route('progres_instalasi.save') }}", {
+                _token: '{{ csrf_token() }}',
+                instalasi_id: id,
+                grup_slo_id: '{{ $grupSloId }}',
+                status: status
+            });
+        }
+        function changeStatusDetail(id, detailId) {
+            let status = $('#status_instalasi_' + id).find('option:selected').val();
+            let progres = $('#status_' + id + '_' + detailId).find('option:selected').val();
+            $.post("{{ route('progres_instalasi.detail.save') }}", {
+                _token: '{{ csrf_token() }}',
+                instalasi_id: id,
+                detail_id: detailId,
+                grup_slo_id: '{{ $grupSloId }}',
+                status: status,
+                progres: progres
+            });
+        }
     </script>
 @endpush

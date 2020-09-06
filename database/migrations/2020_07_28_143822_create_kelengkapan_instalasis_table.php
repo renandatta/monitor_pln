@@ -19,6 +19,7 @@ class CreateKelengkapanInstalasisTable extends Migration
             $table->unsignedBigInteger('grup_slo_id');
             $table->unsignedBigInteger('kontraktor_id');
             $table->unsignedBigInteger('petugas_id');
+            $table->string('lingkup');
             $table->text('alamat');
             $table->string('koordinat');
             $table->timestamps();

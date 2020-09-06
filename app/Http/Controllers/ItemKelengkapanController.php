@@ -26,7 +26,8 @@ class ItemKelengkapanController extends Controller
 
     public function search(Request $request)
     {
-        $itemKelengkapan = $this->itemKelengkapan->whereNull('parent_id')->orderBy('no_urut', 'asc');
+        $itemKelengkapan = $this->itemKelengkapan->whereNull('parent_id')->orderBy('no_urut', 'asc')
+            ->with(['sub_items']);
         if ($request->has('nama') && $request->input('nama') != '')
             $itemKelengkapan = $itemKelengkapan->where('nama', 'like', '%'. $request->input('nama') .'%');
         if ($request->has('grup_slo_id') && $request->input('grup_slo_id') != '')
@@ -36,6 +37,7 @@ class ItemKelengkapanController extends Controller
             $itemKelengkapan->paginate($request->input('paginate')) :
             $itemKelengkapan->get();
         $grupSloId = $request->has('grup_slo_id') ? $request->input('grup_slo_id') : null;
+        if ($request->has('ajax')) return $itemKelengkapan;
         return view('item_kelengkapan._table', compact('itemKelengkapan', 'grupSloId'));
     }
 

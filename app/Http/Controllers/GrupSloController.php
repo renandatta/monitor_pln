@@ -31,6 +31,7 @@ class GrupSloController extends Controller
         $grupSlo = $request->has('paginate') ?
             $grupSlo->paginate($request->input('paginate')) :
             $grupSlo->get();
+        if ($request->has('ajax')) return $grupSlo;
         return view('grup_slo._table', compact('grupSlo'));
     }
 

@@ -12,7 +12,9 @@
 
     <link rel="shortcut icon" href="{{ asset('img/logo.png') }}"/>
     <style>
-
+        .select2-container {
+            width: 100%!important;
+        }
     </style>
     @stack('styles')
 </head>
@@ -120,7 +122,7 @@
                                         </a>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('/') }}" class="menu-link">
+                                        <a href="{{ route('kelengkapan_instalasi') }}" class="menu-link">
                                             <span class="menu-text">Kelengkapan</span>
                                             <span class="menu-desc">Kelengkapan Instalasi</span>
                                         </a>

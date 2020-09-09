@@ -89,6 +89,50 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal_detail" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_detail_judul">Detail Instalasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table>
+                            <tr><td>Jalur</td><td width="50px" class="text-center">:</td><td id="jalur"></td></tr>
+                            <tr><td>Nama</td><td width="50px" class="text-center">:</td><td id="nama"></td></tr>
+                            <tr><td>Kontraktor</td><td width="50px" class="text-center">:</td><td id="kontraktor"></td></tr>
+                            <tr><td>Petugas</td><td width="50px" class="text-center">:</td><td id="petugas"></td></tr>
+                            <tr><td>Direksi</td><td width="50px" class="text-center">:</td><td id="direksi"></td></tr>
+                            <tr><td>Alamat</td><td width="50px" class="text-center">:</td><td id="alamat"></td></tr>
+                            <tr><td>Koordinat</td><td width="50px" class="text-center">:</td><td id="koordinat"></td></tr>
+                            <tr><td>No Surat Permohonan Inspeksi</td><td width="50px" class="text-center">:</td><td id="no_surat_inspeksi"></td></tr>
+                            <tr><td>Tanggal Surat Permohonan Inspeksi</td><td width="50px" class="text-center">:</td><td id="tanggal_surat_inspeksi"></td></tr>
+                            <tr><td>No RLB</td><td width="50px" class="text-center">:</td><td id="no_slb"></td></tr>
+                            <tr><td>Tanggal RLB</td><td width="50px" class="text-center">:</td><td id="tanggal_slb"></td></tr>
+                            <tr><td>Tanggal Energize</td><td width="50px" class="text-center">:</td><td id="tanggal_energize"></td></tr>
+                            <tr><td>No ST1</td><td width="50px" class="text-center">:</td><td id="no_st1"></td></tr>
+                            <tr><td>Tanggal ST1</td><td width="50px" class="text-center">:</td><td id="tanggal_st1"></td></tr>
+                            <tr><td>No ST2</td><td width="50px" class="text-center">:</td><td id="no_st2"></td></tr>
+                            <tr><td>Tanggal ST2</td><td width="50px" class="text-center">:</td><td id="tanggal_st2"></td></tr>
+                            <tr><td>Nilai Final Quantity</td><td width="50px" class="text-center">:</td><td id="nilai_final"></td></tr>
+                            <tr><td>No SLO</td><td width="50px" class="text-center">:</td><td id="no_slo"></td></tr>
+                            <tr><td>Tanggal SLO</td><td width="50px" class="text-center">:</td><td id="tanggal_slo"></td></tr>
+                            <tr><td>No STOP</td><td width="50px" class="text-center">:</td><td id="no_stop"></td></tr>
+                            <tr><td>Tanggal STOP</td><td width="50px" class="text-center">:</td><td id="tanggal_stop"></td></tr>
+                            <tr><td>No STAP</td><td width="50px" class="text-center">:</td><td id="no_stap"></td></tr>
+                            <tr><td>Tanggal STAP</td><td width="50px" class="text-center">:</td><td id="tanggal_stap"></td></tr>
+                            <tr><td>No STP</td><td width="50px" class="text-center">:</td><td id="no_stp"></td></tr>
+                            <tr><td>Tanggal STP</td><td width="50px" class="text-center">:</td><td id="tanggal_stp"></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
@@ -122,5 +166,35 @@
             formSearch.trigger("submit");
         }
         searchData();
+
+        function lihatDetail(data) {
+            console.log(data);
+            $('#jalur').html(data.jalur.nama);
+            $('#nama').html(data.nama);
+            $('#kontraktor').html(data.kontraktor.nama);
+            $('#petugas').html(data.petugas.nama);
+            $('#direksi').html(data.lingkup);
+            $('#alamat').html(data.alamt);
+            $('#koordinat').html(data.koordinat);
+            $('#no_surat_inspeksi').html(data.no_surat_inspeksi);
+            $('#tanggal_surat_inspeksi').html(data.tanggal_surat_inspeksi);
+            $('#no_slb').html(data.no_slb);
+            $('#tanggal_slb').html(data.tanggal_slb);
+            $('#tanggal_energize').html(data.tanggal_energize);
+            $('#no_st1').html(data.no_st1);
+            $('#tanggal_st1').html(data.tanggal_st1);
+            $('#no_st2').html(data.no_st2);
+            $('#tanggal_st2').html(data.tanggal_st2);
+            $('#nilai_final').html(data.nilai_final);
+            $('#no_slo').html(data.no_slo);
+            $('#tanggal_slo').html(data.tanggal_slo);
+            $('#no_stop').html(data.no_stop);
+            $('#tanggal_stop').html(data.tanggal_stop);
+            $('#no_stap').html(data.no_stap);
+            $('#tanggal_stap').html(data.tanggal_stap);
+            $('#no_stp').html(data.no_stp);
+            $('#tanggal_stp').html(data.tanggal_stp);
+            $('#modal_detail').modal('show');
+        }
     </script>
 @endpush

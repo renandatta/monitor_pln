@@ -41,7 +41,7 @@
                                         <label for="instalasi_id">Instalasi</label>
                                         <select name="instalasi_id" id="instalasi_id" class="form-control select2" required>
                                             @foreach($instalasi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->jalur->nama . ', ' . $item->nama }}</option>
                                             @endforeach
                                         </select>
                                         @if(!empty($kelengkapan))

@@ -15,6 +15,9 @@
         .select2-container {
             width: 100%!important;
         }
+        input.kt-datepicker {
+            width: 100%!important;
+        }
     </style>
     @stack('styles')
 </head>
@@ -98,22 +101,19 @@
                                                     <a href="{{ route('grup_slo') }}" class="menu-link"><span class="menu-text">Grup SLO</span></a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">
-                                                    <a href="{{ route('item_kelengkapan') }}" class="menu-link"><span class="menu-text">Item Kelengkapan</span></a>
+                                                    <a href="{{ route('jalur') }}" class="menu-link"><span class="menu-text">Jalur</span></a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">
-                                                    <a href="{{ route('item_progres') }}" class="menu-link"><span class="menu-text">Item Progres</span></a>
+                                                    <a href="{{ route('item_kelengkapan') }}" class="menu-link"><span class="menu-text">Item Kelengkapan</span></a>
                                                 </li>
+{{--                                                <li class="menu-item" aria-haspopup="true">--}}
+{{--                                                    <a href="{{ route('item_progres') }}" class="menu-link"><span class="menu-text">Item Progres</span></a>--}}
+{{--                                                </li>--}}
                                                 <li class="menu-item" aria-haspopup="true">
                                                     <a href="{{ route('user') }}" class="menu-link"><span class="menu-text">User</span></a>
                                                 </li>
                                             </ul>
                                         </div>
-                                    </li>
-                                    <li class="menu-item menu-item-submenu menu-item-rel">
-                                        <a href="{{ route('jalur') }}" class="menu-link">
-                                            <span class="menu-text">Jalur</span>
-                                            <span class="menu-desc">Gardu Induk</span>
-                                        </a>
                                     </li>
                                     <li class="menu-item menu-item-submenu menu-item-rel">
                                         <a href="{{ route('instalasi') }}" class="menu-link">
@@ -255,8 +255,42 @@
 <script src="{{ asset('assets/js/pages/widgets.js?v=7.0.6') }}"></script>
 
 <script>
+    $('input').attr('autocomplete', 'off');
+
     $('.select2').select2();
     $('.kt-selectpicker').selectpicker();
+    $('.kt-timepicker').timepicker({
+        showSeconds: true,
+        showMeridian: false
+    });
+
+    let arrows = {
+        leftArrow: '<i class="la la-angle-left"></i>',
+        rightArrow: '<i class="la la-angle-right"></i>'
+    };
+    $('.kt-datepicker').datepicker({
+        todayHighlight: true,
+        orientation: "bottom left",
+        templates: arrows,
+        format: 'dd-mm-yyyy',
+        autoclose: true
+    });
+    $('.kt-datepicker-month').datepicker({
+        viewMode: "months",
+        minViewMode: "months",
+        todayHighlight: true,
+        orientation: "bottom left",
+        templates: arrows,
+        format: 'mm-yyyy',
+        autoclose: true
+    });
+
+    // $('.autonumeric').attr('data-a-sep','.');
+    // $('.autonumeric').attr('data-a-dec',',');
+    // $('.autonumeric').autoNumeric({mDec: '0',vMax:'9999999999999999999999999', vMin: '-99999999999999999'});
+    // $('.autonumeric-decimal').attr('data-a-sep','.');
+    // $('.autonumeric-decimal').attr('data-a-dec',',');
+    // $('.autonumeric-decimal').autoNumeric({mDec: '2',vMax:'999'});
 </script>
 @stack('scripts')
 </body>

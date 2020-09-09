@@ -42,11 +42,12 @@ class ProgresInstalasiController extends Controller
     {
         if (!$request->has('grup_slo_id')) return abort(404);
         if (!$request->has('jalur_id')) return abort(404);
-        $grupSloId = $request->has('grup_slo_id');
+        $grupSloId = $request->input('grup_slo_id');
         $itemProgres = $this->itemProgresRepository->item_by_grup($grupSloId);
 
         $instalasi = $this->instalasi->where('jalur_id', '=', $request->input('jalur_id'))->get();
 
+        $totalProgresJalur = 0;
         foreach ($instalasi as $key => $value) {
             $progres = $this->progresInstalasi->where('instalasi_id', '=', $value->id)
                 ->where('grup_slo_id', '=', $grupSloId)
@@ -54,16 +55,38 @@ class ProgresInstalasiController extends Controller
             $instalasi[$key]->progres = $progres;
 
             $detailProgres = array();
-            foreach ($itemProgres as $key2 => $value2) {
-                $detail = $this->progresInstalasiDetail->where('progres_instalasi_id', '=', $progres->id)
-                    ->where('item_progres_id', '=', $value2->id)
-                    ->first();
-                array_push($detailProgres, $detail);
+            if (!empty($progres)) {
+                $totalProgres = 0;
+                foreach ($itemProgres as $key2 => $value2) {
+                    $detail = $this->progresInstalasiDetail->where('progres_instalasi_id', '=', $progres->id)
+                        ->where('item_progres_id', '=', $value2->id)
+                        ->first();
+                    if (!empty($detail)) {
+                        $totalProgres += $detail->progres;
+                    }
+                    array_push($detailProgres, $detail);
+                }
             }
+            $progres = 0;
+            if (count($itemProgres) > 0) {
+                $progres = round($totalProgres / count($itemProgres) * 100, 2);
+                ProgresInstalasi::where('instalasi_id', '=', $value->id)
+                    ->where('grup_slo_id', '=', $grupSloId)
+                    ->update(['progres_bay' => $progres]);
+            }
+
+            $instalasi[$key]->progres = $progres;
             $instalasi[$key]->detail_progres = $detailProgres;
+            $totalProgresJalur += $progres;
+        }
+        $totalJalur = round($totalProgresJalur / count($instalasi), 2);
+        if (count($itemProgres) > 0) {
+            ProgresInstalasi::join('instalasi', 'instalasi.id', '=', 'progres_instalasi.instalasi_id')
+                ->where('jalur_id', '=', $request->input('jalur_id'))
+                ->update(['progres_jalur' => $totalJalur]);
         }
 
-        return view('progres_instalasi._table', compact('instalasi', 'itemProgres'));
+        return view('progres_instalasi._table', compact('instalasi', 'itemProgres', 'totalJalur'));
     }
 
     public function info(Request $request)

@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th rowspan="2">Instalasi</th>
@@ -18,8 +18,12 @@
         @forelse($instalasi as $key => $value)
             <tr class="datatable-row">
                 <td class="text-nowrap">{{ $value->nama }}</td>
-                <td id="progres_jalur_{{ $value->id }}">{{ format_decimal($value->progres_jalur) }}</td>
-                <td id="progres_bay_{{ $value->id }}">{{ format_decimal($value->progres_bay) }}</td>
+                @if($key == 0)
+                    <td id="progres_jalur_{{ $value->jalur_id }}" class="text-right" rowspan="{{ count($instalasi) }}" style="vertical-align: middle">
+                        {{ $totalJalur }}
+                    </td>
+                @endif
+                <td class="text-right" id="progres_bay_{{ $value->id }}">{{ $value->progres }}</td>
                 <td class="p-0">
                     <select name="status_instalasi_{{ $value->id }}" id="status_instalasi_{{ $value->id }}" class="form-control select-td" style="width: 150px" onchange="changeStatusInstalasi({{ $value->id }})">
                         <option value=""></option>
@@ -32,6 +36,7 @@
                         document.getElementById('status_instalasi_{{ $value->id }}').value = "{{ $value->progres->status ?? '' }}";
                     </script>
                 </td>
+                @php($totalProgres)
                 @foreach($itemProgres as $key2 => $item)
                     <td class="p-0">
                         <select name="status_{{ $value->id }}_{{ $item->id }}" id="status_{{ $value->id }}_{{ $item->id }}" class="form-control select-td" onchange="changeStatusDetail({{ $value->id }}, {{ $item->id }})">

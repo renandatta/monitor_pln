@@ -13,7 +13,7 @@ class Instalasi extends Model
         'jalur_id', 'nama', 'status', 'kontraktor_id', 'petugas_id', 'alamat', 'koordinat', 'lingkup',
         'no_surat_inspeksi', 'tanggal_surat_inspeksi', 'no_slb', 'tanggal_slb', 'tanggal_energize',
         'no_st1', 'tanggal_st1', 'no_st2', 'tanggal_st2', 'nilai_final', 'no_slo', 'tanggal_slo',
-        'no_stop', 'tanggal_stop', 'no_stap', 'tanggal_stap', 'no_stp', 'tanggal_stp', 'kontraktor_id', 'petugas_id',
+        'no_stop', 'tanggal_stop', 'no_stap', 'tanggal_stap', 'no_stp', 'tanggal_stp'
     ];
 
     public function jalur()

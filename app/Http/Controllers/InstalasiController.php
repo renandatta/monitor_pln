@@ -33,6 +33,8 @@ class InstalasiController extends Controller
         $instalasi = $this->instalasi->orderBy('id', 'desc')
             ->with(['kontraktor', 'petugas', 'jalur']);
 
+        if ($request->has('id') && $request->input('id') != '')
+            $instalasi = $instalasi->where('id', '=', $request->input('id'));
         if ($request->has('nama') && $request->input('nama') != '')
             $instalasi = $instalasi->where('nama', 'like', '%'. $request->input('nama') .'%');
         if ($request->has('jalur_id') && $request->input('jalur_id') != '')
@@ -42,6 +44,7 @@ class InstalasiController extends Controller
             $instalasi->paginate($request->input('paginate')) :
             $instalasi->get();
         $jalurId = $request->has('jalur_id') ? $request->input('jalur_id') : null;
+        if ($request->has('ajax')) return $instalasi;
         return view('instalasi._table', compact('instalasi', 'jalurId'));
     }
 

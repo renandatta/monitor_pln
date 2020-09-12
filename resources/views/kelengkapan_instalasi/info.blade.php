@@ -65,44 +65,6 @@
                                             <input type="text" class="form-control" name="grup_slo" value="{{ $kelengkapan->grup_slo->nama }}" readonly>
                                         @endif
                                     </div>
-                                    <div class="form-group">
-                                        <label for="kontraktor_id">Kontraktor</label>
-                                        <select name="kontraktor_id" id="kontraktor_id" class="form-control select2" required>
-                                            @foreach($kontraktor as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                            @endforeach
-                                        </select>
-                                        @if(!empty($kelengkapan))
-                                            <script>
-                                                document.getElementById('kontraktor_id').value = "{{ $kelengkapan->kontraktor_id }}";
-                                            </script>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="petugas_id">Petugas</label>
-                                        <select name="petugas_id" id="petugas_id" class="form-control select2" required>
-                                            @foreach($petugas as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                            @endforeach
-                                        </select>
-                                        @if(!empty($kelengkapan))
-                                            <script>
-                                                document.getElementById('petugas_id').value = "{{ $kelengkapan->petugas_id }}";
-                                            </script>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="lingkup">Lingkup</label>
-                                        <input type="text" class="form-control" id="lingkup" name="lingkup" value="{{ !empty($kelengkapan) ? $kelengkapan->lingkup : '' }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="alamat">Alamat</label>
-                                        <input type="text" class="form-control" id="alamat" name="alamat" value="{{ !empty($kelengkapan) ? $kelengkapan->alamat : '' }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="koordinat">Koordinat</label>
-                                        <input type="text" class="form-control" id="koordinat" name="koordinat" value="{{ !empty($kelengkapan) ? $kelengkapan->koordinat : '' }}">
-                                    </div>
                                     <button type="submit" class="btn btn-primary font-weight-bold">Simpan</button>
                                     <a href="{{ route('kelengkapan_instalasi') }}" class="btn btn-secondary font-weight-bold">Batal</a>
                                 </div>
@@ -147,19 +109,7 @@
                                                     </td>
                                                     <td class="p-1 text-center" style="vertical-align: middle;">
                                                         @if(!empty($value->upload))
-                                                            @if($value->upload->status == 'Pending')
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        Verifikasi
-                                                                    </button>
-                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                        <a class="dropdown-item" href="javascript:void(0)" onclick="verifikasiDokumen('Terima', {{ $value->upload->id }})"><i class="la la-check mr-2"></i> Diterima</a>
-                                                                        <a class="dropdown-item" href="javascript:void(0)" onclick="verifikasiDokumen('Tolak', {{ $value->upload->id }})"><i class="la la-times mr-2"></i> Ditolak</a>
-                                                                    </div>
-                                                                </div>
-                                                            @else
-                                                                {{ $value->upload->status }}
-                                                            @endif
+                                                            {{ $value->upload->status }}
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -179,19 +129,6 @@
                                                         <td class="p-1 text-center" style="vertical-align: middle;">
                                                             @if(!empty($value2->upload))
                                                                 {{ $value2->upload->status }}
-                                                                @if($value2->upload->status == 'Pending')
-                                                                    <div class="dropdown">
-                                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            Verifikasi
-                                                                        </button>
-                                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                            <a class="dropdown-item" href="javascript:void(0)" onclick="verifikasiDokumen('Terima', {{ $value2->upload->id }})"><i class="la la-check mr-2"></i> Diterima</a>
-                                                                            <a class="dropdown-item" href="javascript:void(0)" onclick="verifikasiDokumen('Tolak', {{ $value2->upload->id }})"><i class="la la-times mr-2"></i> Ditolak</a>
-                                                                        </div>
-                                                                    </div>
-                                                                @else
-                                                                    {{ $value->upload->status }}
-                                                                @endif
                                                             @endif
                                                         </td>
                                                     </tr>

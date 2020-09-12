@@ -23,5 +23,21 @@ class KelengkapanInstalasi extends Model
         return $this->belongsTo(GrupSlo::class, 'grup_slo_id', 'id');
     }
 
+    public function getItemKelengkapanAttribute()
+    {
+        return ItemKelengkapan::where('grup_slo_id', '=', $this->grup_slo_id)->get();
+    }
+
+    public function diupload()
+    {
+        return $this->hasMany(KelengkapanInstalasiDetail::class, 'kelengkapan_instalasi_id', 'id');
+    }
+
+    public function diverifikasi()
+    {
+        return $this->hasMany(KelengkapanInstalasiDetail::class, 'kelengkapan_instalasi_id', 'id')
+            ->where('status', '=', 'Terima');
+    }
+
 
 }

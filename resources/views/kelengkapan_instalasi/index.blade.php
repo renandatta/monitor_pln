@@ -118,7 +118,115 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal_list_dokumen" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_list_dokumen_judul">Dokumen Kelengkapan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="list_data_dokumen">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_detail_instalasi" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_list_dokumen_judul">Detail Instalasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-sm table-borderless" id="detail_instalasi">
+                        <tr>
+                            <td>Jalur</td><td width="3%" class="text-center">:</td><td id="jalur"></td>
+                        </tr>
+                        <tr>
+                            <td>Nama</td><td width="3%" class="text-center">:</td><td id="nama"></td>
+                        </tr>
+                        <tr>
+                            <td>Kontraktor</td><td width="3%" class="text-center">:</td><td id="kontraktor"></td>
+                        </tr>
+                        <tr>
+                            <td>Petugas</td><td width="3%" class="text-center">:</td><td id="petugas"></td>
+                        </tr>
+                        <tr>
+                            <td>Lingkup</td><td width="3%" class="text-center">:</td><td id="lingkup"></td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td><td width="3%" class="text-center">:</td><td id="alamat"></td>
+                        </tr>
+                        <tr>
+                            <td>Koordinat</td><td width="3%" class="text-center">:</td><td id="koordinat"></td>
+                        </tr>
+                        <tr>
+                            <td>No. Surat Inspeksi</td><td width="3%" class="text-center">:</td><td id="no_surat_inspeksi"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Surat Inspeksi</td><td width="3%" class="text-center">:</td><td id="tanggal_surat_inspeksi"></td>
+                        </tr>
+                        <tr>
+                            <td>No. RLB</td><td width="3%" class="text-center">:</td><td id="no_slb"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal RLB</td><td width="3%" class="text-center">:</td><td id="tanggal_slb"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Energize</td><td width="3%" class="text-center">:</td><td id="tanggal_energize"></td>
+                        </tr>
+                        <tr>
+                            <td>Nilai Final</td><td width="3%" class="text-center">:</td><td id="nilai_final"></td>
+                        </tr>
+                        <tr>
+                            <td>No. ST1</td><td width="3%" class="text-center">:</td><td id="no_st1"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal ST1</td><td width="3%" class="text-center">:</td><td id="tanggal_st1"></td>
+                        </tr>
+                        <tr>
+                            <td>No. ST2</td><td width="3%" class="text-center">:</td><td id="no_st2"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal ST2</td><td width="3%" class="text-center">:</td><td id="tanggal_st2"></td>
+                        </tr>
+                        <tr>
+                            <td>No. SLO</td><td width="3%" class="text-center">:</td><td id="no_slo"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal SLO</td><td width="3%" class="text-center">:</td><td id="tanggal_slo"></td>
+                        </tr>
+                        <tr>
+                            <td>No. STOP</td><td width="3%" class="text-center">:</td><td id="no_stop"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal STOP</td><td width="3%" class="text-center">:</td><td id="tanggal_stop"></td>
+                        </tr>
+                        <tr>
+                            <td>No. STAP</td><td width="3%" class="text-center">:</td><td id="no_stap"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal STAP</td><td width="3%" class="text-center">:</td><td id="tanggal_stap"></td>
+                        </tr>
+                        <tr>
+                            <td>No. STP</td><td width="3%" class="text-center">:</td><td id="no_stp"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal STP</td><td width="3%" class="text-center">:</td><td id="tanggal_stp"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
 
 @push('scripts')
     <script>
@@ -155,5 +263,66 @@
             });
         }
         search_data();
+
+        let selectedId = '';
+        function listDokumen(id) {
+            selectedId = id;
+            $.post("{{ route('kelengkapan_instalasi.list_dokumen') }}", {
+                _token: '{{ csrf_token() }}',
+                id: id
+            }, function (result) {
+                $('#list_data_dokumen').html(result);
+                $('#modal_list_dokumen').modal('show');
+            });
+        }
+        function verifikasiDokumen(status, id) {
+            $.post("{{ route('kelengkapan_instalasi.detail.verifikasi') }}", {
+                _token: '{{ csrf_token() }}',
+                id: id,
+                status: status
+            }, function () {
+                listDokumen(selectedId);
+            });
+        }
+        $('#modal_list_dokumen').on('hidden.bs.modal', function (e) {
+            search_data(selectedPage);
+        });
+
+        function detailInstalasi(id) {
+            $.post("{{ route('instalasi.search') }}", {
+                _token: '{{ csrf_token() }}',
+                ajax: true,
+                id: id
+            }, function (result) {
+                result = result[0];
+                $('#jalur').html(result.jalur.nama);
+                $('#nama').html(result.nama);
+                $('#kontraktor').html(result.kontraktor != null ? result.kontraktor.nama : '');
+                $('#petugas').html(result.petugas != null ? result.petugas.nama : '');
+                $('#lingkup').html(result.lingkup);
+                $('#alamat').html(result.alamat);
+                $('#koordinat').html(result.koordinat);
+                $('#no_surat_inspeksi').html(result.no_surat_inspeksi);
+                $('#tanggal_surat_inspeksi').html(result.tanggal_surat_inspeksi);
+                $('#no_slb').html(result.no_slb);
+                $('#tanggal_slb').html(result.tanggal_slb);
+                $('#tanggal_energize').html(result.tanggal_energize);
+                $('#nilai_final').html(result.nilai_final);
+                $('#no_st1').html(result.no_st1);
+                $('#tanggal_st1').html(result.tanggal_st1);
+                $('#no_st2').html(result.no_st2);
+                $('#tanggal_st2').html(result.tanggal_st2);
+                $('#nilai_final').html(result.nilai_final);
+                $('#no_slo').html(result.no_slo);
+                $('#tanggal_slo').html(result.tanggal_slo);
+                $('#no_stop').html(result.no_stop);
+                $('#tanggal_stop').html(result.tanggal_stop);
+                $('#no_stap').html(result.no_stap);
+                $('#tanggal_stap').html(result.tanggal_stap);
+                $('#no_stp').html(result.no_stp);
+                $('#tanggal_stp').html(result.tanggal_stp);
+                $('#modal_detail_instalasi').modal('show');
+            });
+        }
     </script>
 @endpush

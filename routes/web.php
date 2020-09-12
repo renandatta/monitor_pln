@@ -86,6 +86,7 @@ Route::post('progres_instalasi/detail/save', 'ProgresInstalasiController@detail_
 
 Route::get('kelengkapan_instalasi', 'KelengkapanInstalasiController@index')->name('kelengkapan_instalasi');
 Route::get('kelengkapan_instalasi/info', 'KelengkapanInstalasiController@info')->name('kelengkapan_instalasi.info');
+Route::post('kelengkapan_instalasi/list_dokumen', 'KelengkapanInstalasiController@list_dokumen')->name('kelengkapan_instalasi.list_dokumen');
 Route::post('kelengkapan_instalasi/search', 'KelengkapanInstalasiController@search')->name('kelengkapan_instalasi.search');
 Route::post('kelengkapan_instalasi/save', 'KelengkapanInstalasiController@save')->name('kelengkapan_instalasi.save');
 Route::post('kelengkapan_instalasi/delete', 'KelengkapanInstalasiController@delete')->name('kelengkapan_instalasi.delete');

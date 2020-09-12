@@ -37,24 +37,35 @@ class KelengkapanInstalasiController extends Controller
 
     public function info(Request $request)
     {
+        $request->merge(['ajax' => 1]);
         $kelengkapan = $request->has('id') ?
             $this->kelengkapanInstalasiRepository->find($request->input('id')) : [];
         $listDokumen = [];
         if (!empty($kelengkapan)) {
-            $listDokumen = ItemKelengkapan::whereNull('parent_id')
-                ->orderBy('no_urut', 'asc')
-                ->where('grup_slo_id', '=', $kelengkapan->grup_slo_id)
-                ->get();
-            foreach ($listDokumen as $key => $value) {
-                foreach ($value->sub_items as $key2 => $value2) {
-                    $listDokumen[$key]->sub_items[$key2]->upload = KelengkapanInstalasiDetail::where('kelengkapan_instalasi_id', '=', $kelengkapan->id)
-                        ->where('item_kelengkapan_id', '=', $value2->id)->first();
-                }
-                $listDokumen[$key]->upload = KelengkapanInstalasiDetail::where('kelengkapan_instalasi_id', '=', $kelengkapan->id)
-                    ->where('item_kelengkapan_id', '=', $value->id)->first();
-            }
+            $listDokumen = $this->list_dokumen($request);
         }
         return view('kelengkapan_instalasi.info', compact('kelengkapan', 'listDokumen'));
+    }
+
+    public function list_dokumen(Request $request)
+    {
+        if (!$request->has('id')) return abort(404);
+        $kelengkapanId = $request->input('id');
+        $kelengkapan = $this->kelengkapanInstalasiRepository->find($kelengkapanId);
+        $listDokumen = ItemKelengkapan::whereNull('parent_id')
+            ->orderBy('no_urut', 'asc')
+            ->where('grup_slo_id', '=', $kelengkapan->grup_slo_id)
+            ->get();
+        foreach ($listDokumen as $key => $value) {
+            foreach ($value->sub_items as $key2 => $value2) {
+                $listDokumen[$key]->sub_items[$key2]->upload = KelengkapanInstalasiDetail::where('kelengkapan_instalasi_id', '=', $kelengkapan->id)
+                    ->where('item_kelengkapan_id', '=', $value2->id)->first();
+            }
+            $listDokumen[$key]->upload = KelengkapanInstalasiDetail::where('kelengkapan_instalasi_id', '=', $kelengkapan->id)
+                ->where('item_kelengkapan_id', '=', $value->id)->first();
+        }
+        if ($request->has('ajax')) return $listDokumen;
+        return view('kelengkapan_instalasi._list_dokumen', compact('listDokumen'));
     }
 
     public function search(Request $request)

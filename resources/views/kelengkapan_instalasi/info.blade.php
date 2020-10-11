@@ -9,7 +9,7 @@
 @section('content')
     <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
-            <div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                 <div class="d-flex align-items-center flex-wrap mr-1">
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <h5 class="text-dark font-weight-bold my-1 mr-5">{{ $addTitle . $title }}</h5>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="d-flex flex-column-fluid">
-            <div class=" container ">
+            <div class=" container-fluid ">
                 <div class="card card-custom">
                     <div class="card-header flex-wrap border-0 pt-6 pb-0">
                         <div class="card-title">
@@ -36,7 +36,7 @@
                                 <input type="hidden" name="id" value="{{ $kelengkapan->id }}">
                             @endif
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="instalasi_id">Instalasi</label>
                                         <select name="instalasi_id" id="instalasi_id" class="form-control select2" required>
@@ -50,12 +50,15 @@
                                             </script>
                                         @endif
                                     </div>
+                                </div>
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="grup_slo_id">Grup SLO</label>
                                         @if(empty($kelengkapan))
                                             <select name="grup_slo_id" id="grup_slo_id" class="form-control select2"  required>
+                                                <option value="" selected disabled>Pilih Grup SLO</option>
                                                 @foreach($grupSlo as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+{{--                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>--}}
                                                     @foreach($item->sub_items as $subItem)
                                                         <option value="{{ $subItem->id }}">{{ $item->nama . ' - ' .$subItem->nama }}</option>
                                                     @endforeach
@@ -65,11 +68,14 @@
                                             <input type="text" class="form-control" name="grup_slo" value="{{ $kelengkapan->grup_slo->nama }}" readonly>
                                         @endif
                                     </div>
+                                </div>
+                                <div class="col-md-2 pt-2 text-right">
+                                    <br>
                                     <button type="submit" class="btn btn-primary font-weight-bold">Simpan</button>
                                     <a href="{{ route('kelengkapan_instalasi') }}" class="btn btn-secondary font-weight-bold">Batal</a>
                                 </div>
                                 @if(empty($kelengkapan))
-                                    <div class="col-md-7">
+                                    <div class="col-md-12">
                                         <h4># File Kelengkapan</h4>
                                         <table class="table table-bordered">
                                             <thead>
@@ -82,7 +88,7 @@
                                         </table>
                                     </div>
                                 @else
-                                    <div class="col-md-7">
+                                    <div class="col-md-12">
                                         <h4># File Kelengkapan</h4>
                                         <table class="table table-bordered">
                                             <thead>
@@ -98,8 +104,10 @@
                                                 <tr>
                                                     <td>{{ $value->nama }}</td>
                                                     <td class="p-1 text-center">
-                                                        @if(empty($value->upload) || (!empty($value->upload) && $value->upload->status != 'Terima'))
-                                                            <button type="button" class="btn btn-sm btn-primary" onclick="uploadDokumen({{ $value->id }}, '{{ $value->nama }}')">Upload</button>
+                                                        @if($value->jenis != '-')
+                                                            @if(empty($value->upload) || (!empty($value->upload) && $value->upload->status != 'Terima'))
+                                                                <button type="button" class="btn btn-sm btn-primary" onclick="uploadDokumen({{ $value->id }}, '{{ $value->nama }}')">Upload</button>
+                                                            @endif
                                                         @endif
                                                     </td>
                                                     <td class="p-1 text-center">

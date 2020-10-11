@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\ItemKelengkapan;
 use App\KelengkapanInstalasiDetail;
 use App\Kontraktor;
+use App\LogKelengkapan;
 use App\Petugas;
 use App\Repositories\GrupSloRepository;
 use App\Repositories\InstalasiRepository;
 use App\Repositories\KelengkapanInstalasiRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -68,6 +70,15 @@ class KelengkapanInstalasiController extends Controller
         return view('kelengkapan_instalasi._list_dokumen', compact('listDokumen'));
     }
 
+    public function riwayat_dokumen(Request $request)
+    {
+        $riwayat = LogKelengkapan::where('kelengkapan_instalasi_id', $request->input('id'))
+            ->orderBy('tanggal', 'asc')
+            ->orderBy('id', 'asc')
+            ->with(['user'])->get();
+        return view('kelengkapan_instalasi._riwayat_dokumen', compact('riwayat'));
+    }
+
     public function search(Request $request)
     {
         $kelengkapan = $this->kelengkapanInstalasiRepository->search($request);
@@ -105,6 +116,12 @@ class KelengkapanInstalasiController extends Controller
             $field->konten = $path;
             $field->status = 'Pending';
             $field->save();
+
+            LogKelengkapan::create([
+                'user_id' => Auth::user()->id,
+                'kelengkapan_instalasi_id' => $field->kelengkapan_instalasi_id,
+                'keterangan' => 'Upload dokumen kelengkapan <b>' . ItemKelengkapan::find($field->item_kelengkapan_id)->nama . '</b>'
+            ]);
         }
         return redirect()->route('kelengkapan_instalasi.info', 'id=' . $field->kelengkapan_instalasi_id);
     }
@@ -114,6 +131,49 @@ class KelengkapanInstalasiController extends Controller
         if (!$request->has('id')) return abort(404);
         if (!$request->has('status')) return abort(404);
         KelengkapanInstalasiDetail::where('id', '=', $request->input('id'))
-            ->update(['status' => $request->input('status')]);
+            ->update([
+                'status' => $request->input('status'),
+                'pesan_tolak' => $request->input('pesan')
+            ]);
+        $detail = KelengkapanInstalasiDetail::find($request->input('id'));
+
+        $alasan = $request->input('pesan') != '' ? ' dengan alasan : <b>' . $request->input('pesan') . '</b>' : '';
+
+        LogKelengkapan::create([
+            'user_id' => Auth::user()->id,
+            'kelengkapan_instalasi_id' => $detail->kelengkapan_instalasi_id,
+            'keterangan' => 'Verifikasi <b>' . $request->input('status') . '</b> dokumen ' . ItemKelengkapan::find($detail->item_kelengkapan_id)->nama . $alasan
+        ]);
+
+        if ($request->input('status') == 'Terima')
+            $this->kelengkapanInstalasiRepository->progress($detail->kelengkapan_instalasi_id);
+    }
+
+    public function save_riwayat(Request $request)
+    {
+        if (!$request->has('id') || !$request->has('keterangan')) return abort(404);
+        $path = '';
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = Str::random(16) . '.' . $request->file('file')->extension();
+            $path = Storage::putFileAs('riwayat', $file, $filename);
+        }
+        LogKelengkapan::create([
+            'user_id' => Auth::user()->id,
+            'kelengkapan_instalasi_id' => $request->input('id'),
+            'keterangan' => $request->input('keterangan'),
+            'tanggal' => unformat_date($request->input('tanggal')),
+            'file' => $path
+        ]);
+        return redirect()->route('kelengkapan_instalasi')
+            ->with('riwayat_id', $request->input('id'));
+    }
+
+    public function delete_riwayat(Request $request)
+    {
+        if (!$request->has('id')) return abort(404);
+        LogKelengkapan::find($request->input('id'))->delete();
+        return redirect()->route('kelengkapan_instalasi')
+            ->with('riwayat_id', $request->input('id'));
     }
 }

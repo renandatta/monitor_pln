@@ -52,7 +52,7 @@
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <div id="kt_header" class="header flex-column  header-fixed " >
                 <div class="header-top">
-                    <div class=" container ">
+                    <div class=" container-fluid ">
                         <div class="d-none d-lg-flex align-items-center mr-3">
                             <a href="" class="mr-20">
                                 <img alt="Logo" src="{{ asset('img/logo.png') }}" class="max-h-35px"/>
@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="header-bottom">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
                             <div id="kt_header_menu" class="header-menu header-menu-left header-menu-mobile header-menu-layout-default">
                                 <ul class="menu-nav">
@@ -143,7 +143,7 @@
             @yield('content')
 
             <div class="footer bg-white py-4 d-flex flex-lg-column " id="kt_footer">
-                <div class=" container  d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <div class=" container-fluid  d-flex flex-column flex-md-row align-items-center justify-content-between">
                     <div class="text-dark order-2 order-md-1">
                         <span class="text-muted font-weight-bold mr-2">2020&copy;</span>
                         <a class="text-dark-75 text-hover-primary">PLN</a>

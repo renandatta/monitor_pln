@@ -4,58 +4,56 @@
         <tr>
             <th rowspan="2">Instalasi</th>
             <th colspan="2" class="text-center">Progres</th>
-            <th rowspan="2">Status</th>
-            @foreach($itemProgres as $item)
-                <th rowspan="2" class="text-nowrap">{{ $item->nama }}</th>
+            @foreach($itemKelengkapan as $item)
+                <th rowspan="2" width="100px">{{ $item->nama }}</th>
             @endforeach
         </tr>
         <tr>
-            <th>Jalur</th>
-            <th>Bay</th>
+            <th class="text-center">Jalur</th>
+            <th class="text-center">Bay</th>
         </tr>
         </thead>
         <tbody>
-        @forelse($instalasi as $key => $value)
-            <tr class="datatable-row">
-                <td class="text-nowrap">{{ $value->nama }}</td>
-                @if($key == 0)
-                    <td id="progres_jalur_{{ $value->jalur_id }}" class="text-right" rowspan="{{ count($instalasi) }}" style="vertical-align: middle">
-                        {{ $totalJalur }}
-                    </td>
+        @php($jalur = '')
+        @php($totalProgresJalur = 0)
+        @php($jumlahJalur = 0)
+        @foreach($kelengakapanInstalasi as $key => $value)
+            @if($jalur != $value->instalasi->jalur_id)
+                @if($key != 0)
+                    <script>
+                        document.getElementById('jalur_{{ $jalur }}').innerHTML = '{{ $jumlahJalur > 0 ? round($totalProgresJalur / $jumlahJalur, 0) : 0 }}%';
+                    </script>
                 @endif
-                <td class="text-right" id="progres_bay_{{ $value->id }}">{{ $value->progres }}</td>
-                <td class="p-0">
-                    <select name="status_instalasi_{{ $value->id }}" id="status_instalasi_{{ $value->id }}" class="form-control select-td" style="width: 150px" onchange="changeStatusInstalasi({{ $value->id }})">
-                        <option value=""></option>
-                        <option>Belum Operasi</option>
-                        <option>Operasi</option>
-                        <option>Serah Terima</option>
-                        <option>Terbit SLO</option>
-                    </select>
-                    <script>
-                        document.getElementById('status_instalasi_{{ $value->id }}').value = "{{ $value->progres->status ?? '' }}";
-                    </script>
-                </td>
-                @php($totalProgres)
-                @foreach($itemProgres as $key2 => $item)
-                    <td class="p-0">
-                        <select name="status_{{ $value->id }}_{{ $item->id }}" id="status_{{ $value->id }}_{{ $item->id }}" class="form-control select-td" onchange="changeStatusDetail({{ $value->id }}, {{ $item->id }})">
-                            <option value=""></option>
-                            <option value="0.00">0</option>
-                            <option value="0.50">0.5</option>
-                            <option value="1.00">1</option>
-                        </select>
+                <tr class="datatable-row">
+                    <td class="text-nowrap" colspan="99">Jalur : <b>{{ $value->instalasi->jalur->nama }}</b></td>
+                </tr>
+                @php($totalProgresJalur = 0)
+            @endif
+            <tr class="datatable-row">
+                <td class="text-nowrap pl-5">- {{ $value->instalasi->nama }}</td>
+                @if($value->jumlah_per_jalur > 0)
+                    @php($jumlahJalur = $value->jumlah_per_jalur)
+                    <td class="text-center" rowspan="{{ $value->jumlah_per_jalur }}" id="jalur_{{ $value->instalasi->jalur_id }}" style="vertical-align: middle;"></td>
+                @endif
+                <td class="text-center">{{ $value->progresBay }}%</td>
+                @foreach($value->progres as $progres)
+                    <td class="text-center @if($progres['sub_items_count'] == 0) {{ $progres['upload'] == '0' ? 'td-red' : 'td-green' }} @else {{ $progres['sub_diupload'] == $progres['sub_items_count'] ? 'td-green' : 'td-yellow' }} @endif">
+                        @if($progres['sub_items_count'] == 0)
+                            {{ $progres['upload'] == '0' ? '0' : '1' }}
+                        @else
+                            {{ $progres['sub_diupload'] .'/'. $progres['sub_items_count'] }}
+                        @endif
                     </td>
-                    <script>
-                        document.getElementById('status_{{ $value->id }}_{{ $item->id }}').value = "{{ $value->detail_progres[$key2]->progres ?? '' }}";
-                    </script>
                 @endforeach
             </tr>
-        @empty
-            <tr>
-                <td colspan="{{ count($itemProgres) + 4 }}" class="text-center">Data instalasi kosong</td>
-            </tr>
-        @endforelse
+            @php($totalProgresJalur = $totalProgresJalur + $value->progresBay)
+            @php($jalur = $value->instalasi->jalur_id)
+        @endforeach
+        @if(count($kelengakapanInstalasi) > 0)
+        <script>
+            document.getElementById('jalur_{{ $jalur }}').innerHTML = '{{ $jumlahJalur > 0 ? round($totalProgresJalur / $jumlahJalur, 0) : 0 }}%';
+        </script>
+        @endif
         </tbody>
     </table>
 </div>

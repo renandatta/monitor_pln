@@ -11,7 +11,7 @@
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="subheader py-3 py-lg-8 subheader-transparent" id="kt_subheader">
-            <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                 <div class="d-flex align-items-center flex-wrap mr-1">
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <h2 class="subheader-title text-dark font-weight-bold my-1 mr-3">{{ $title }}</h2>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="d-flex flex-column-fluid">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-custom mb-5" id="card_pencarian" style="display: none;">
@@ -134,6 +134,36 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modal_riwayat_dokumen" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_riwayat_dokumen_judul">Riwayat Dokumen Kelengkapan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="form_riwayat" class="mb-4" enctype="multipart/form-data" action="{{ route('kelengkapan_instalasi.detail.save_riwayat') }}">
+                        @csrf
+                        <input type="hidden" name="id" id="riwayat_id">
+                        <div class="row">
+                            <div class="col-md-8 pr-0">
+                                <input type="text" class="form-control kt-datepicker border-bottom-0" name="tanggal" id="tanggal_riwayat" placeholder="Pilih Tanggal" style="border-radius: 0;width: 100%;" required>
+                                <textarea name="keterangan" id="keterangan_riwayat" rows="3" class="form-control border-top-0" placeholder="Keterangan kegiatan" style="border-radius: 0;" required></textarea>
+                            </div>
+                            <div class="col-md-4 pl-0">
+                                <input type="file" class="dropify" name="file" id="file" data-height="100">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block py-2" style="border-radius: 0;">Simpan</button>
+                    </form>
+                    <div id="list_riwayat_dokumen"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="modal_detail_instalasi" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -227,9 +257,14 @@
     </div>
 @endsection
 
+@push('styles')
+    <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet">
+@endpush
 
 @push('scripts')
+    <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
     <script>
+        $('.dropify').dropify();
         function toggle_pencarian() {
             $('#card_pencarian').slideToggle();
         }
@@ -273,15 +308,55 @@
             }, function (result) {
                 $('#list_data_dokumen').html(result);
                 $('#modal_list_dokumen').modal('show');
+            }).fail(function (xhr) {
+                console.log(xhr.responseText);
             });
         }
+        function riwayatDokumen(id) {
+            $('#riwayat_id').val(id);
+            selectedId = id;
+            $.post("{{ route('kelengkapan_instalasi.riwayat_dokumen') }}", {
+                _token: '{{ csrf_token() }}',
+                id: id
+            }, function (result) {
+                $('#list_riwayat_dokumen').html(result);
+                $('#modal_riwayat_dokumen').modal('show');
+            }).fail(function (xhr) {
+                console.log(xhr.responseText);
+            });
+        }
+        @if(Session::has('riwayat_id'))
+            riwayatDokumen({{ Session::get('riwayat_id') }});
+        @endif
         function verifikasiDokumen(status, id) {
+            if (status === 'Terima') simpan_verifikasi(id, status);
+            else {
+                $('#modal_list_dokumen').modal('toggle');
+                Swal.fire({
+                    title: 'Masukan alasan ditolak',
+                    input: 'textarea',
+                    inputPlaceholder: '...',
+                    inputAttributes: {
+                        'aria-label': '...'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Simpan',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        simpan_verifikasi(id, status, result.value);
+                    }
+                    $('#modal_list_dokumen').modal('toggle');
+                })
+            }
+        }
+        function simpan_verifikasi(id, status, pesan = '') {
             $.post("{{ route('kelengkapan_instalasi.detail.verifikasi') }}", {
                 _token: '{{ csrf_token() }}',
-                id: id,
-                status: status
+                id, status, pesan
             }, function () {
                 listDokumen(selectedId);
+            }).fail(function (xhr) {
+                console.log(xhr.responseText);
             });
         }
         $('#modal_list_dokumen').on('hidden.bs.modal', function (e) {

@@ -47,7 +47,7 @@ class ItemKelengkapanController extends Controller
         $parent = $request->has('parent_id') ? $this->itemKelengkapan->find($request->input('parent_id')) : null;
         $grupSlo = $this->grupSloRepository->get_slo();
         $grupSloId = $request->has('grup_slo_id') ? $request->input('grup_slo_id') : null;
-        $lastNumber = $this->getLastNumber($request->has('parent_id') ? $parent->id : null);
+        $lastNumber = $this->getLastNumber($grupSloId, $request->has('parent_id') ? $parent->id : null);
         return view('item_kelengkapan.info', compact('itemKelengkapan', 'parent', 'grupSlo', 'grupSloId', 'lastNumber'));
     }
 
@@ -74,9 +74,9 @@ class ItemKelengkapanController extends Controller
             ->with('success', 'Item Kelengkapan berhasil dihapus');
     }
 
-    public function getLastNumber($parentId = null)
+    public function getLastNumber($grup_slo_id, $parentId = null)
     {
-        $last = $this->itemKelengkapan->orderBy('no_urut', 'desc');
+        $last = $this->itemKelengkapan->orderBy('no_urut', 'desc')->where('grup_slo_id', $grup_slo_id);
         $last = ($parentId == null) ? $last->whereNull('parent_id') : $last->where('parent_id', '=', $parentId);
         $last = $last->first();
 

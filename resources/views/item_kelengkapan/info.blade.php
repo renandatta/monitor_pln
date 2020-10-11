@@ -9,7 +9,7 @@
 @section('content')
     <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
-            <div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                 <div class="d-flex align-items-center flex-wrap mr-1">
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <h5 class="text-dark font-weight-bold my-1 mr-5">{{ $addTitle . $title }}</h5>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="d-flex flex-column-fluid">
-            <div class=" container ">
+            <div class=" container-fluid ">
                 <div class="card card-custom">
                     @if(!empty($itemKelengkapan))
                     <div class="card-header flex-wrap ">
@@ -83,12 +83,14 @@
                                 <label for="jenis" class="col-md-2 col-form-label">Jenis</label>
                                 <div class="col-md-10">
                                     <select name="jenis" id="jenis" class="form-control select2">
-                                        <option>-</option>
                                         <option>Gambar</option>
-                                        <option>Teks</option>
+                                        <option>-</option>
+{{--                                        <option>Teks</option>--}}
                                     </select>
                                     <script>
-                                        document.getElementById('jenis').value = "{{ old('name', !empty($itemKelengkapan) ? $itemKelengkapan->jenis : '-') }}";
+                                        @if(!empty($itemKelengkapan))
+                                            document.getElementById('jenis').value = "{{ $itemKelengkapan->jenis }}";
+                                        @endif
                                     </script>
                                 </div>
                             </div>

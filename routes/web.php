@@ -87,8 +87,11 @@ Route::post('progres_instalasi/detail/save', 'ProgresInstalasiController@detail_
 Route::get('kelengkapan_instalasi', 'KelengkapanInstalasiController@index')->name('kelengkapan_instalasi');
 Route::get('kelengkapan_instalasi/info', 'KelengkapanInstalasiController@info')->name('kelengkapan_instalasi.info');
 Route::post('kelengkapan_instalasi/list_dokumen', 'KelengkapanInstalasiController@list_dokumen')->name('kelengkapan_instalasi.list_dokumen');
+Route::post('kelengkapan_instalasi/riwayat_dokumen', 'KelengkapanInstalasiController@riwayat_dokumen')->name('kelengkapan_instalasi.riwayat_dokumen');
 Route::post('kelengkapan_instalasi/search', 'KelengkapanInstalasiController@search')->name('kelengkapan_instalasi.search');
 Route::post('kelengkapan_instalasi/save', 'KelengkapanInstalasiController@save')->name('kelengkapan_instalasi.save');
 Route::post('kelengkapan_instalasi/delete', 'KelengkapanInstalasiController@delete')->name('kelengkapan_instalasi.delete');
 Route::post('kelengkapan_instalasi/detail/save', 'KelengkapanInstalasiController@detail_save')->name('kelengkapan_instalasi.detail.save');
 Route::post('kelengkapan_instalasi/detail/verifikasi', 'KelengkapanInstalasiController@detail_verifikasi')->name('kelengkapan_instalasi.detail.verifikasi');
+Route::post('kelengkapan_instalasi/detail/save_riwayat', 'KelengkapanInstalasiController@save_riwayat')->name('kelengkapan_instalasi.detail.save_riwayat');
+Route::post('kelengkapan_instalasi/detail/delete_riwayat', 'KelengkapanInstalasiController@delete_riwayat')->name('kelengkapan_instalasi.detail.delete_riwayat');

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Instalasi;
 use App\Jalur;
+use App\KelengkapanInstalasi;
 use App\ProgresInstalasi;
 use Illuminate\Http\Request;
 
@@ -41,11 +43,12 @@ class HomeController extends Controller
                 $total70 += 1;
 
         }
-        $pencapaian = $totalJalur / count($jalur);
+        $slo = Instalasi::whereNotNull('no_slo')->count();
+        $total = Instalasi::count();
         array_push($dataProgresJalur, [
             'nama' => 'Progres Jalur',
-            'pencapaian' => round($pencapaian, 2),
-            'sisa' => round(100 - $pencapaian, 2)
+            'slo' => round($slo, 2),
+            'belum' => round($total - $slo, 2)
         ]);
         array_push($dataPersentase, [
             'nama' => 'Kurang dari 70%',

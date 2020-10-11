@@ -7,7 +7,7 @@
 @section('content')
     <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
-            <div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class=" container-fluid  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                 <div class="d-flex align-items-center flex-wrap mr-1">
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <h5 class="text-dark font-weight-bold my-1 mr-5">{{ $title }}</h5>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="d-flex flex-column-fluid">
-            <div class=" container ">
+            <div class=" container-fluid ">
                 <div class="card card-custom">
                     <div class="card-header flex-wrap border-0 pt-6 pb-0">
                         <div class="card-title">
@@ -25,16 +25,23 @@
                                 <div class="input-group input-group-solid">
                                     <div class="input-group-prepend mr-3">
                                         <select name="grup_slo_id" id="search_grup_slo_id" class="form-control">
-                                            <option value="">Semua Grup</option>
                                             @foreach ($grupSlo as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                                 @foreach ($item->sub_items as $subItem)
                                                     <option value="{{ $subItem->id }}">{{ $item->nama . ' - ' . $subItem->nama }}</option>
                                                 @endforeach
                                             @endforeach
+{{--                                            <option value="">Semua Grup</option>--}}
+{{--                                            @foreach ($grupSlo as $item)--}}
+{{--                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>--}}
+{{--                                                @foreach ($item->sub_items as $subItem)--}}
+{{--                                                    <option value="{{ $subItem->id }}">{{ $item->nama . ' - ' . $subItem->nama }}</option>--}}
+{{--                                                @endforeach--}}
+{{--                                            @endforeach--}}
                                         </select>
                                         <script>
-                                            document.getElementById('search_grup_slo_id').value = "{{ $grupSloId }}";
+                                            @if($grupSloId != '')
+                                                document.getElementById('search_grup_slo_id').value = "{{ $grupSloId }}";
+                                            @endif
                                         </script>
                                     </div>
                                     <input type="text" class="form-control" id="search_name" name="search" placeholder="Pencairan" title="Search" autofocus>

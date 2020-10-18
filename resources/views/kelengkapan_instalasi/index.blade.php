@@ -277,7 +277,7 @@
             e.preventDefault();
             search_data();
         });
-        function search_data(page = '') {
+        function searchData(page = '') {
             if (page.toString() === '-1') page = selectedPage - 1;
             if (page.toString() === '+1') page = selectedPage + 1;
             if (page === '') page = selectedPage;
@@ -297,7 +297,7 @@
                 console.log(xhr.responseText);
             });
         }
-        search_data();
+        searchData();
 
         let selectedId = '';
         function listDokumen(id) {

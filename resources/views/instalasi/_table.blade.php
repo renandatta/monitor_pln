@@ -17,7 +17,7 @@
             @if($tempJalur != $value->jalur_id)
                 @php($no = 1)
                 <tr class="datatable-row">
-                    <td colspan="99">Jalur : <b>{{ $value->jalur->nama }}</b></td>
+                    <td colspan="99">Jalur : <b>{{ $value->jalur->nama ?? '' }}</b></td>
                 </tr>
             @endif
             <tr class="datatable-row">

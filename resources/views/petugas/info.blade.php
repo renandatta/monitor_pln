@@ -51,13 +51,13 @@
                             <div class="form-group row">
                                 <label for="email" class="col-md-2 col-form-label">Email</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="email" id="email" name="email" value="{{ old('email', !empty($petugas) ? $petugas->user->email : '') }}">
+                                    <input class="form-control" type="email" id="email" name="email" value="{{ old('email', !empty($petugas) ? $petugas->user->email : '') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="password" class="col-md-2 col-form-label">Password</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" id="password" name="password" value="{{ old('password') }}">
+                                    <input class="form-control" type="text" id="password" name="password" value="{{ old('password') }}" @if(empty($petugas)) required @endif>
                                     @if(!empty($petugas)) <small>*) Kosongi apabila tidak diubah</small> @endif
                                 </div>
                             </div>

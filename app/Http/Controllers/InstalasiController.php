@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Instalasi;
+use App\KelengkapanInstalasi;
 use App\Kontraktor;
 use App\Petugas;
+use App\ProgresInstalasi;
 use App\Repositories\JalurRepository;
 use Illuminate\Http\Request;
 
@@ -23,6 +25,12 @@ class InstalasiController extends Controller
 
     public function index(Request $request)
     {
+        $instalasis = Instalasi::onlyTrashed()->get();
+        foreach ($instalasis as $instalasi) {
+            KelengkapanInstalasi::where('instalasi_id', $instalasi->id)->delete();
+            ProgresInstalasi::where('instalasi_id', $instalasi->id)->delete();
+        }
+
         $jalur = $this->jalurRepository->get_jalur();
         $jalurId = $request->has('jalur_id') ? $request->input('jalur_id') : null;
         return view('instalasi.index', compact('jalur', 'jalurId'));

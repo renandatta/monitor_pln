@@ -45,7 +45,7 @@
                             <div class="form-group row">
                                 <label for="nama" class="col-md-2 col-form-label">Nama</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" id="nama" name="nama" value="{{ old('name', !empty($kontraktor) ? $kontraktor->nama : '') }}">
+                                    <input class="form-control" type="text" id="nama" name="nama" value="{{ old('name', !empty($kontraktor) ? $kontraktor->nama : '') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -57,13 +57,13 @@
                             <div class="form-group row">
                                 <label for="email" class="col-md-2 col-form-label">Email</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="email" id="email" name="email" value="{{ old('email', !empty($kontraktor) ? $kontraktor->user->email : '') }}">
+                                    <input class="form-control" type="email" id="email" name="email" value="{{ old('email', !empty($kontraktor) ? $kontraktor->user->email : '') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="password" class="col-md-2 col-form-label">Password</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" id="password" name="password" value="{{ old('password') }}">
+                                    <input class="form-control" type="text" id="password" name="password" value="{{ old('password') }}" @if(empty($kontraktor)) required @endif>
                                     @if(!empty($kontraktor)) <small>*) Kosongi apabila tidak diubah</small> @endif
                                 </div>
                             </div>

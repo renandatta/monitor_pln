@@ -77,7 +77,7 @@
             dataTable.html('<div class="d-flex align-items-center"><div class="mr-2 text-muted">Loading...</div><div class="spinner spinner-danger mr-10"></div></div>');
             $.post("{{ route('item_kelengkapan.search') }}?page=" + selectedPage, {
                 _token: "{{ csrf_token() }}",
-                paginate: 10,
+                paginate: 999,
                 nama: $("#search_name").val(),
                 grup_slo_id: searchGrupSlo.find('option:selected').val()
             }, function (result) {
